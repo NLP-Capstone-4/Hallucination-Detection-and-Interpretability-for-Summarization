@@ -1,6 +1,6 @@
 # Dependencies
 
-  1. Needs annotated_capstone_data.xlsx in the same folde
+  1. Needs annotated_capstone_data.xlsx in the same folder
   2. install pandas (pip install pandas)
   3. install openpyxl (pip install openpyxl)
 
