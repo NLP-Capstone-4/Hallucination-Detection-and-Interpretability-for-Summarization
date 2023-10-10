@@ -24,4 +24,4 @@ Faced quite a few issues during installation of fairseq-detect-hallucination. Tr
 3. Execute the eval sum script (python eval_predict_hallucination_sum.py)
 
 ## Tip:
-If using non-GPU machine then comment rober.cuda() on line #77 and roberta.half() on line #79
+If using non-GPU machine then comment roberta.cuda() on line #77 and roberta.half() on line #79
