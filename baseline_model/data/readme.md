@@ -7,4 +7,4 @@
 
 # Execution
 
-Execute the python scrip to generate file.source, file.target, file.ref, file.label files (the filename 'file' is configured in the eval_predict_hallucination_sum.py and in mentioned in the readme)
+Execute the python script to generate file.source, file.target, file.ref, file.label files (the filename 'file' is configured in the eval_predict_hallucination_sum.py and in mentioned in the readme)
