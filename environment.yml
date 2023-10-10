@@ -1,0 +1,12 @@
+name: capstone4
+channels: 
+  - defaults
+dependencies:
+  - scipy
+  - tqdm
+  - numpy
+  - pandas
+  - openpyxl
+  - pip:
+    - torch
+    - fairseq
