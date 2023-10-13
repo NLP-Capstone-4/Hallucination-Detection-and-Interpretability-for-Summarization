@@ -1,1 +1,0 @@
-prepare_hg_dataset.py script reads 'annotated_capstone_data.xlsx' and converts in to a huggingface dataset for training. It uses 'Dialog', 'Generated Summary' and 'Annotations' fields from the xlsx file
