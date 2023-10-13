@@ -6,11 +6,11 @@ import shutil
 from scipy import stats
 import torch
 
-test_dirs = ["/Users/ninaadj/Documents/Personal/Deo/Q4/project/fairseq_files"]
+test_dirs = ["/Users/deoj/Documents/Personal/Q4/project/fairseq_files"]
 test_prefix = ["file"]
 
-models = ["/Users/ninaadj/Documents/Personal/Deo/Q4/project/fairseq_files/xsum"]  # you can test multiple models
-datapath = "//Users/ninaadj/Documents/Personal/Deo/Q4/project/fairseq_files/xsum/data"
+models = ["/Users/deoj/Documents/Personal/Q4/project/fairseq_files/xsum"]  # you can test multiple models
+datapath = "//Users/deoj/Documents/Personal/Q4/project/fairseq_files/xsum/data"
 opt_dir = "output_logs"
 if not os.path.exists(opt_dir):
     os.mkdir(opt_dir)
