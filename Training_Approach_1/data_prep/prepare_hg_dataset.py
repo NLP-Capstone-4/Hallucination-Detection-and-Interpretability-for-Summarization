@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Oct  9 14:08:22 2023
-
-@author: ninaadj
-"""
 
 import pandas as pd
 import datasets
