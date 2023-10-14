@@ -12,6 +12,7 @@ prepare_hg_dataset.py script reads 'annotated_capstone_data.xlsx' and converts i
    2. Generate the 'source' field by combining the 'Dialog' and 'Generated Summary' fields, using a unique separator token in between. The source format will follow this pattern: 'Dialog' <SEP> 'Generated Summary'.
    3. Generate tags (gold labels) for the source by adding 'O' in front of the existing 'Annotations' for 'Dialog' tokens and the special separator token <SEP>. It's important to observe that the final token in our 'Annotations' (O or M) will correspond to the special ending token <EOS>.
    4. Create distinctive feature names (unique labels) based on the gold labels (tags) and subsequently perform one-hot encoding on the tags using the corresponding feature name index.
-   5. Upload dataset on huggingface
+   5. Tokenize 'source' and 'tags'
+   6. Upload dataset on huggingface
    
 
