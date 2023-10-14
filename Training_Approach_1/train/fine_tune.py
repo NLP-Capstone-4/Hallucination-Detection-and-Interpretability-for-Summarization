@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 10 14:51:19 2023
-
-@author: ninaadj
-"""
 
 from datasets import load_dataset
 from transformers import AutoTokenizer
