@@ -1444,7 +1444,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             return ((loss,) + output) if loss is not None else output
 
         return Seq2SeqLMOutput(
-            loss=loss,
+            loss=(loss + masked_lm_loss) if loss is not None else loss,
             logits=linear_logits,
             past_key_values=outputs.past_key_values,
             decoder_hidden_states=outputs.decoder_hidden_states,
