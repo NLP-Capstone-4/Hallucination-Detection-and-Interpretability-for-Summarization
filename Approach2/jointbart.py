@@ -1311,10 +1311,11 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
 
     def __init__(self, config: BartConfig):
         super().__init__(config)
+        self.num_labels = 6
         self.model = BartModel(config)
         self.register_buffer("final_logits_bias", torch.zeros((1, self.model.shared.num_embeddings)))
         self.lm_head = nn.Linear(config.d_model, self.model.shared.num_embeddings, bias=False)
-        self.classifier = nn.Linear(config.d_model, 6)
+        self.classifier = nn.Linear(config.d_model, self.num_labels)
 
         # Initialize weights and apply final processing
         self.post_init()
@@ -1378,8 +1379,6 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
         """
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
-        print(tags)
-
         if labels is not None:
             if use_cache:
                 logger.warning("The `use_cache` argument is changed to `False` since `labels` is provided.")
@@ -1407,18 +1406,28 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             return_dict=return_dict,
         )
 
-        print(outputs[0])
+        linear_logits = self.classifier(outputs[0]) # bs x token_len x num tags
 
+        print(f" shape of output of classifier layer: {linear_logits.shape}") 
+        print(f" shape of tags: {tags.cpu()}")# bs x token_len
         
-
         lm_logits = self.lm_head(outputs[0])
         lm_logits = lm_logits + self.final_logits_bias.to(lm_logits.device)
+
+        loss = None
+        if tags is not None:
+            tags = tags.to(linear_logits.device)
+            tags_loss_fct = CrossEntropyLoss(ignore_index=-100)
+            loss = tags_loss_fct(linear_logits.view(-1, self.num_labels), labels.view(-1))
+
+        print(f"loss for classifying into tags: {loss.item()}")
 
         masked_lm_loss = None
         if labels is not None:
             labels = labels.to(lm_logits.device)
             loss_fct = CrossEntropyLoss() 
             masked_lm_loss = loss_fct(lm_logits.view(-1, self.config.vocab_size), labels.view(-1))
+
 
         if not return_dict:
             output = (lm_logits,) + outputs[1:]
