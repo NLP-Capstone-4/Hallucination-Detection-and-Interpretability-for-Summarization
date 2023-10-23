@@ -1351,7 +1351,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
     @add_end_docstrings(BART_GENERATION_EXAMPLE)
     def forward(
         self,
-        tags: torch.FloatTensor = None,
+        decoder_tags: torch.FloatTensor = None,
         input_ids: torch.LongTensor = None,
         attention_mask: Optional[torch.Tensor] = None,
         decoder_input_ids: Optional[torch.LongTensor] = None,
@@ -1378,6 +1378,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
         Returns:
         """
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+
 
         if labels is not None:
             if use_cache:
@@ -1408,19 +1409,25 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
 
         linear_logits = self.classifier(outputs[0]) # bs x token_len x num tags
 
-        print(f" shape of output of classifier layer: {linear_logits.shape}") 
-        print(f" shape of tags: {tags.cpu()}")# bs x token_len
+        # print(f" shape of output of classifier layer: {linear_logits.shape}") 
+        
+        # print(f" shape of tags: {tags.cpu()}")# bs x token_len
         
         lm_logits = self.lm_head(outputs[0])
         lm_logits = lm_logits + self.final_logits_bias.to(lm_logits.device)
 
-        loss = None
-        if tags is not None:
-            tags = tags.to(linear_logits.device)
-            tags_loss_fct = CrossEntropyLoss(ignore_index=-100)
-            loss = tags_loss_fct(linear_logits.view(-1, self.num_labels), labels.view(-1))
+        # print(f" after view: {linear_logits.view(-1, self.num_labels).shape}")
 
-        print(f"loss for classifying into tags: {loss.item()}")
+        # print(f" tags after view: {tags.view(-1)}")
+        # if decoder_tags is None:
+        #     print("Tags are none")
+        loss = None
+        if decoder_tags is not None:
+            decoder_tags = decoder_tags.to(linear_logits.device)
+            tags_loss_fct = CrossEntropyLoss(ignore_index=-100)
+            loss = tags_loss_fct(linear_logits.view(-1, self.num_labels), decoder_tags.view(-1))
+
+        # print(f"loss for classifying into tags: {loss.item()}")
 
         masked_lm_loss = None
         if labels is not None:
@@ -1428,14 +1435,17 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             loss_fct = CrossEntropyLoss() 
             masked_lm_loss = loss_fct(lm_logits.view(-1, self.config.vocab_size), labels.view(-1))
 
+        # print(loss)
+        # print(masked_lm_loss)
+
 
         if not return_dict:
-            output = (lm_logits,) + outputs[1:]
-            return ((masked_lm_loss,) + output) if masked_lm_loss is not None else output
+            output = (linear_logits) + outputs[1:]
+            return ((loss,) + output) if loss is not None else output
 
         return Seq2SeqLMOutput(
-            loss=masked_lm_loss,
-            logits=lm_logits,
+            loss=loss,
+            logits=linear_logits,
             past_key_values=outputs.past_key_values,
             decoder_hidden_states=outputs.decoder_hidden_states,
             decoder_attentions=outputs.decoder_attentions,
