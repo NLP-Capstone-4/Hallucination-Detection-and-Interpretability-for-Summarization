@@ -20,3 +20,11 @@ train_without_gold.py/train_with_gold.py will use the huggingface dataset prepar
 Execute train_without_gold.py/train_with_gold.py just like any python script (python fine_tune.py).
 It will evaluate on test split after training.
 
+# Reports
+ [without gold](https://wandb.ai/devavratj/Capstone_Halucination/runs/ls2mkgyq)
+
+ [with gold](https://wandb.ai/devavratj/Capstone_Halucination/runs/pyuwdvxf)
+
+# Output
+Please refer output folder for screenshots
+
