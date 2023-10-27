@@ -16,7 +16,9 @@ prepare_withgold_dataset uses 'Dialog', 'Reference Summary', 'Generated Summary'
    3. Generate tags (gold labels) for the source by adding 'O' in front of the existing 'Annotations' for 'Dialog' tokens and the special separator token <SEP>. It's important to observe that the final token in our 'Annotations' (O or M) will correspond to the special ending token <EOS>.
    4. Create distinctive feature names (unique labels) based on the gold labels (tags) and subsequently perform one-hot encoding on the tags using the corresponding feature name index.
    5. Tokenize 'source' and 'tags'
-   6. Upload dataset on huggingface
+   6. Uploaded datasets on huggingface
+
          [Deojoandco/capstone_hal_without_gold](https://huggingface.co/datasets/Deojoandco/capstone_hal_without_gold)
+      
          [Deojoandco/capstone_hal_with_gold](https://huggingface.co/datasets/Deojoandco/capstone_hal_with_gold)
 
