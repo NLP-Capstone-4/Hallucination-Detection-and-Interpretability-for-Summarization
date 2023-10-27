@@ -3,6 +3,8 @@ prepare_withgold_dataset.py and prepare_withoutgold_dataset.py reads 'annotated_
 prepare_withoutgold_dataset uses 'Dialog', 'Generated Summary' and 'Annotations' fields from the xlsx file
 prepare_withgold_dataset uses 'Dialog', 'Reference Summary', 'Generated Summary' and 'Annotations' fields from the xlsx file
 
+Change FROM and TO variable as required to select the records from xlsx file.
+
 # Dependencies
    1. 'annotated_capstone_data.xlsx' should be in same folder of the script
    2. Number of 'Annotations' token count and 'Generated Summary' token count should be matching.
