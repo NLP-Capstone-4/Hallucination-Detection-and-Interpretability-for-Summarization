@@ -17,7 +17,7 @@ train_without_gold.py/train_with_gold.py will use the huggingface dataset prepar
      The 'tokenize_and_align_labels' function realigns the tokens and labels as described above
 
 # Execution
-Execute train_without_gold.py/train_with_gold.py just like any python script (python fine_tune.py).
+Execute train_without_gold.py/train_with_gold.py just like any python code file.
 It will evaluate on test split after training.
 
 # Reports
