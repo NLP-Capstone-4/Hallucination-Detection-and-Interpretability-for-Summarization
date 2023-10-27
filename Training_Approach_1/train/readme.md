@@ -3,7 +3,7 @@ train_without_gold.py/train_with_gold.py will use the huggingface dataset prepar
 # Dependencies
   1. Install huggingface transformers, evaluate, seqeval and wandb (pip install transformers evaluate seqeval wandb)
   2. 'Deojoandco/capstone_hal' huggingface dataset created using 'prepare_hg_dataset.py'
-  3. [Deojoandco/capstone_hal_without_gold](https://huggingface.co/datasets/Deojoandco/capstone_hal_without_gold) huggingface dataset created using 'prepare_withgold_dataset.py'
+  3. [Deojoandco/capstone_hal_without_gold](https://huggingface.co/datasets/Deojoandco/capstone_hal_without_gold) huggingface dataset created using 'prepare_withoutgold_dataset.py'
   4. [Deojoandco/capstone_hal_with_gold](https://huggingface.co/datasets/Deojoandco/capstone_hal_with_gold) huggingface dataset created using 'prepare_withgold_dataset.py'
 
 # Loading the data
