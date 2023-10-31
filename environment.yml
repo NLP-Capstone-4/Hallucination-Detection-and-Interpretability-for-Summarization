@@ -10,3 +10,5 @@ dependencies:
   - pip:
     - torch
     - fairseq
+    - requests
+    - openai
