@@ -1,4 +1,4 @@
-ID,Dialogue,Reference Summary,Generated Summary,"Count Generated summary words(includes , and .)",Annotations,"Count Annotations Words(includes , and .)",Verified Tags,Missing Information,Redundant Information,Circumstance,Wrong Reference,Negation,Object,Tense,Modality,Score,Model Name,gpt_4_generated
+ID,Dialogue,Reference Summary,Generated Summary,"Count Generated summary words(includes , and .)",Annotations,"Count Annotations Words(includes , and .)",Verified Tags,Missing Information,Redundant Information,Circumstance,Wrong Reference,Negation,Object,Tense,Modality,Score,Model Name,gpt_4_generated_summaries,gpt_4_tags
 21,"Will: hey babe, what do you want for dinner tonight?
 Emma:  gah, don't even worry about it tonight
 Will: what do you mean? everything ok?
@@ -9,7 +9,7 @@ Will: you sure? Maybe you want me to pick you up?
 Emma: no no it's alright. I'll be home soon, i'll tell you when I get home. 
 Will: Alright, love you. 
 Emma: love you too. ","Emma will be home soon and she will let Will know.
-",Will will pick Emma up when he gets home.,10,W O C W C O W O O O,10,,X,,X,,,,,,1,BART-Baseline,Emma isn't hungry and will inform Will when she gets home.
+",Will will pick Emma up when he gets home.,10,W O C W C O W O O O,10,,X,,X,,,,,,1,BART-Baseline,Emma isn't hungry and will inform Will when she gets home.,"""O O O O O O O O O O O O"""
 22,"Will: hey babe, what do you want for dinner tonight?
 Emma:  gah, don't even worry about it tonight
 Will: what do you mean? everything ok?
@@ -20,7 +20,7 @@ Will: you sure? Maybe you want me to pick you up?
 Emma: no no it's alright. I'll be home soon, i'll tell you when I get home. 
 Will: Alright, love you. 
 Emma: love you too. ","Emma will be home soon and she will let Will know.
-",Emma doesn't want to cook tonight. She will be home soon and she will tell Will when she gets home.,22,O O O O O O O O O O O O O O O O O O O O O O O ,24,,,,,,,,,,10,T5-Cons,Emma isn't hungry and will inform Will when she gets home.
+",Emma doesn't want to cook tonight. She will be home soon and she will tell Will when she gets home.,22,O O O O O O O O O O O O O O O O O O O O O O O ,24,,,,,,,,,,10,T5-Cons,Emma isn't hungry and will inform Will when she's home.,"""O O O O O O O O O O O O"""
 20,"Will: hey babe, what do you want for dinner tonight?
 Emma:  gah, don't even worry about it tonight
 Will: what do you mean? everything ok?
@@ -31,7 +31,7 @@ Will: you sure? Maybe you want me to pick you up?
 Emma: no no it's alright. I'll be home soon, i'll tell you when I get home. 
 Will: Alright, love you. 
 Emma: love you too. ","Emma will be home soon and she will let Will know.
-",Emma doesn't want to cook dinner but will let Will pick her up.,14,O O O O C O O O O O C C C C O M,16,,,,X,,,,,,5,Pegasus-Baseline,Emma isn't hungry and will inform Will when she gets home.
+",Emma doesn't want to cook dinner but will let Will pick her up.,14,O O O O C O O O O O C C C C O M,16,,,,X,,,,,,5,Pegasus-Baseline,Emma isn't hungry and will inform Will when she gets home.,"""O O O O O O O O O O O O"""
 220,"Daniel: have you guys played DA?
 Mary: which one?
 Daniel: Inquisition
@@ -44,7 +44,7 @@ Daniel: just started and I'm not sure, trying to get used to the mechanics
 Mary: you have to give it a go, I was sceptical at first, but... omg, wait for Dorian
 Lucas: Is it better than 2?
 Mary: oh yes","Mary has played DA Inquisition. Lucas has played DA II. Daniel started playing DA Inquisition.
-","Daniel, Mary and Lucas have played DA II. Mary loves it and recommends it to everyone. Daniel has just started and is trying to get used to the mechanics.",33,O O O O O O OB O O OB O O O O O O O O O O O O O O O O O O M,29,O O O O O O O O O O OB O O O O O O O O O O O O O O O O O O M,,x,,,,,,,8,BART-Cons,"Daniel, Mary, and Lucas discuss their experiences with playing DA Inquisition."
+","Daniel, Mary and Lucas have played DA II. Mary loves it and recommends it to everyone. Daniel has just started and is trying to get used to the mechanics.",33,O O O O O O OB O O OB O O O O O O O O O O O O O O O O O O M,29,O O O O O O O O O O OB O O O O O O O O O O O O O O O O O O M,,x,,,,,,,8,BART-Cons,"Daniel and Mary have played DA Inquisition, while Lucas has only played DA II.","""O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O"
 219,"Daniel: have you guys played DA?
 Mary: which one?
 Daniel: Inquisition
@@ -57,7 +57,7 @@ Daniel: just started and I'm not sure, trying to get used to the mechanics
 Mary: you have to give it a go, I was sceptical at first, but... omg, wait for Dorian
 Lucas: Is it better than 2?
 Mary: oh yes","Mary has played DA Inquisition. Lucas has played DA II. Daniel started playing DA Inquisition.
-",Daniel has just started playing DA. Lucas played DA II. Mary loves it.,16,O O O O O O O O O O O O O M,14,O O C C C O O O O O O O O M,x,,,,,,,,5,Pegasus-Cons,"Daniel and Mary have played DA Inquisition, while Lucas has only played DA II."
+",Daniel has just started playing DA. Lucas played DA II. Mary loves it.,16,O O O O O O O O O O O O O M,14,O O C C C O O O O O O O O M,x,,,,,,,,5,Pegasus-Cons,"Daniel, Mary, and Lucas discuss their experiences with playing DA Inquisition.","""O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O"
 145,"Augustine: Guys, remember it's Wharton's bday next week?
 Darlene: yay, a party!
 Heather: yay! crap we need to buy him a present
@@ -74,7 +74,7 @@ Darlene: but better ask him twice
 Walker: will do
 Augustine: 2moro ok?
 Darlene: and sure ask ab the party!","Next week is Wharton's birthday. Augustine, Darlene, Heather and Walker want to buy him a paper shredder. Walker will make sure if Wharton really wants it. 
-","Darlene, Walker and Darlene are going to Wharton's birthday party next week. They need to buy paper shredder and office equipment.",24,O O O O W O O O O O O O O O O O O O O O N OB OB O M,25,,x,x,,x,,,,,5,BART-Baseline,"Wharton's birthday is next week and his friends consider buying him a paper shredder, pending confirmation."
+","Darlene, Walker and Darlene are going to Wharton's birthday party next week. They need to buy paper shredder and office equipment.",24,O O O O W O O O O O O O O O O O O O O O N OB OB O M,25,,x,x,,x,,,,,5,BART-Baseline,"Wharton's birthday is next week and his friends consider buying him a paper shredder, pending confirmation.","""O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O"
 149,"Augustine: Guys, remember it's Wharton's bday next week?
 Darlene: yay, a party!
 Heather: yay! crap we need to buy him a present
@@ -91,7 +91,7 @@ Darlene: but better ask him twice
 Walker: will do
 Augustine: 2moro ok?
 Darlene: and sure ask ab the party!","Next week is Wharton's birthday. Augustine, Darlene, Heather and Walker want to buy him a paper shredder. Walker will make sure if Wharton really wants it. 
-","Wharton has a birthday next week. Augustine, Darlene, Walker and Heather will buy him a paper shredder as a present. Walker will ask Wharton about it tomorrow.",32,O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O,33,,,,,,,,,,10,T5-Cons,Wharton's birthday is next week and his friends consider buying him a paper shredder as a gift.
+","Wharton has a birthday next week. Augustine, Darlene, Walker and Heather will buy him a paper shredder as a present. Walker will ask Wharton about it tomorrow.",32,O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O,33,,,,,,,,,,10,T5-Cons,"Wharton's birthday is next week and his friends plan to gift him a paper shredder, pending confirmation.","""O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O"
 155,"Ollie: Okay, Kelly! Ur up nxt!
 Kelly: Me? I don't wanna.
 Mickey: C'mon!
@@ -120,12 +120,12 @@ Mickey: Listen, guys, fun talking to u, bt gotta go.
 Kelly: Yeah, me too. Bye!
 Jessica: Bye!
 Ollie: Cu!","Kelly is scared of sculpture garden figures in Finnland, she finds figure's faces morbid. For Ollie it's Nagoro village in Japan, it's creepy. 
-","Ollie, Mickey and Jessica are discussing the scary places they've been to. Kelly's a sculpture garden in Finnland. Ollie's Nagoro village in Japan is the worst.",30,O O O O O O O O O O C C C O O O O O O O O O O O O O O O O O M,31,,,,,,,,,,10,T5-Cons,"Kelly fears Finnish sculpture garden's morbid faces, while Ollie finds Japan's Nagoro village creepy."
+","Ollie, Mickey and Jessica are discussing the scary places they've been to. Kelly's a sculpture garden in Finnland. Ollie's Nagoro village in Japan is the worst.",30,O O O O O O O O O O C C C O O O O O O O O O O O O O O O O O M,31,,,,,,,,,,10,T5-Cons,"Kelly fears morbid faces of Finnish sculpture garden, while Ollie finds Nagoro village in Japan creepy.","""O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O"
 180,"Mary: hey, im kinda broke, lend me a few box
 Carter: okay, give me an hour, im at the train station
 Mary: cool, thanks","Mary ran out of money. Carter is going to lend her some in an hour.
-",Mary will lend Carter some money for an hour.,10,W O O W O O C O O O M,11,,,x,,x,,,,,1,Pegasus-Baseline,Mary is broke and Carter agrees to lend her money in an hour.
+",Mary will lend Carter some money for an hour.,10,W O O W O O C O O O M,11,,,x,,x,,,,,1,Pegasus-Baseline,Mary is broke and Carter agrees to lend her money in an hour.,"""O O O O O O O O O O O O O O O"""
 182,"Mary: hey, im kinda broke, lend me a few box
 Carter: okay, give me an hour, im at the train station
 Mary: cool, thanks","Mary ran out of money. Carter is going to lend her some in an hour.
-",Carter will lend Mary a few box at the train station in an hour.,15,O O O O O O OB O O O O O O O O M,16,,,,x,,,,,,1,T5-Cons,Mary is broke and Carter agrees to lend her money in an hour.
+",Carter will lend Mary a few box at the train station in an hour.,15,O O O O O O OB O O O O O O O O M,16,,,,x,,,,,,1,T5-Cons,Mary is broke and Carter agrees to lend her money in an hour.,"""O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O"
