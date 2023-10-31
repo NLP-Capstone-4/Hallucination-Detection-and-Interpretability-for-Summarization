@@ -1,9 +1,8 @@
-import requests
 import logging
 import pandas as pd
 import os
 import openai
-import json
+import time
 
 def query_gpt4(row, logger):
     base_prompt_1 = """Generate a summary for the given set of dialogues by referring to the gold summary. The summary should be short, with length ranging between 10 to 15 words.
@@ -168,6 +167,7 @@ def generated_sum_tags_together(row):
             "role": "assistant",
             "content": generated_summ 
         })
+    time.sleep(10)
     return (generated_summ, generated_tags)
         
 
@@ -182,8 +182,9 @@ def main():
     
     code_filepath = os.path.dirname(os.path.abspath(__file__))
     root_filepath = os.path.dirname(code_filepath)
-    df = pd.read_csv(os.path.join(root_filepath, 'data', 'sample_annotated_capstone_data.csv')) 
+    df = pd.read_csv(os.path.join(root_filepath, 'data', 'annotated_capstone_data.csv')) 
 
+    df = df.sample(n=50)
     # Apply the custom function to each row along axis 1 (row-wise)
     #df['gpt_4_generated_summaries'] = df.apply(query_gpt4, axis=1, args=(logger,))
     #df['gpt_4_tags'] = df.apply(generate_tags, axis=1, args=(logger,))
