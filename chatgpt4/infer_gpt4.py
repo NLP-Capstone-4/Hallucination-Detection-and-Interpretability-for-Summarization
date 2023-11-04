@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import openai
 import time
+import csv
 
 def query_gpt4(row, logger):
     base_prompt_1 = """Generate a summary for the given set of dialogues by referring to the gold summary. The summary should be short, with length ranging between 10 to 15 words.
@@ -103,7 +104,7 @@ def generate_tags(row, logger):
     return chat_reply
 
 
-def generated_sum_tags_together(row):
+def generated_sum_tags_together(row, logger):
     dialogue, gold_summaries = row[1], row[2]
     result = []
     chain_1_prompt_1 = """
@@ -142,54 +143,77 @@ def generated_sum_tags_together(row):
     chain_of_thoughts = [["user", chain_1_prompt_1 + dialogue + chain_1_prompt_2 + gold_summaries], 
             ["user", ""]]
     chain_so_far = []
-    for i in range(0, len(chain_of_thoughts)):
-        chain_so_far.append({
-            "role": chain_of_thoughts[i][0],
-            "content": chain_of_thoughts[i][1]
-        })
-        response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=chain_so_far,
-        temperature=0.001,
-        max_tokens=512,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-        )
-        choices = response['choices']
-        if len(choices) > 0:
-            if i == 0:
-                generated_summ = choices[0]['message']['content']
-                chain_of_thoughts[i+1][1] = chain_2_prompt_1 + generated_summ + chain_2_prompt_2
-            elif i == 1:
-                generated_tags = choices[0]['message']['content']
-        chain_so_far.append({
-            "role": "assistant",
-            "content": generated_summ 
-        })
-    time.sleep(10)
+
+    try:
+        for i in range(0, len(chain_of_thoughts)):
+            chain_so_far.append({
+                "role": chain_of_thoughts[i][0],
+                "content": chain_of_thoughts[i][1]
+            })
+            response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=chain_so_far,
+            temperature=0.001,
+            max_tokens=512,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+            )
+            choices = response['choices']
+            if len(choices) > 0:
+                if i == 0:
+                    generated_summ = choices[0]['message']['content']
+                    chain_of_thoughts[i+1][1] = chain_2_prompt_1 + generated_summ + chain_2_prompt_2
+                elif i == 1:
+                    generated_tags = choices[0]['message']['content']
+            chain_so_far.append({
+                "role": "assistant",
+                "content": generated_summ 
+            })
+        logger.info("Successfully infered conv_id:" + str(row[0]))
+    except Exception as e:
+        logger.error(e)
     return (generated_summ, generated_tags)
         
 
 def main():
     openai.api_key = "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"
-    logger = logging.getLogger('my_logger')
-    logger.setLevel(logging.DEBUG)
-    file_handler = logging.FileHandler('log.txt')
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-    
     code_filepath = os.path.dirname(os.path.abspath(__file__))
     root_filepath = os.path.dirname(code_filepath)
-    df = pd.read_csv(os.path.join(root_filepath, 'data', 'annotated_capstone_data.csv')) 
+    
+    logger = logging.getLogger('my_logger')
+    logger.setLevel(logging.DEBUG)
+    log_filepath = os.path.join(code_filepath, 'log.txt')
+    with open(log_filepath, 'w') as f:
+        pass
+    file_handler = logging.FileHandler(log_filepath)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler) 
+    
+    data_filepath = os.path.join(root_filepath, 'data', 'sample_annotated_capstone_data.csv')
+    save_filepath = os.path.join(root_filepath, 'data', 'gpt_4_summaries.csv')
+    if not os.path.exists(save_filepath):
+        save_df = pd.DataFrame(columns=['ID', 'gpt_4_generated_summaries', 'gpt_4_tags'])
+        save_df.to_csv(save_filepath, index=False)
+    already_processed_conv_id = set(pd.read_csv(save_filepath)['ID'])
 
-    df = df.sample(n=50)
+    df = pd.read_csv(data_filepath) 
+    #df = df.sample(n=5)
+    
+    with open(save_filepath, 'a') as fp:
+        writer = csv.writer(fp)
+        for index, row in df.iterrows():
+            conv_id = row[0]
+            if conv_id not in already_processed_conv_id:
+                (generated_summ, generated_tags) = generated_sum_tags_together(row, logger)
+                writer.writerow([conv_id, generated_summ, generated_tags])
+                time.sleep(10)
+
     # Apply the custom function to each row along axis 1 (row-wise)
     #df['gpt_4_generated_summaries'] = df.apply(query_gpt4, axis=1, args=(logger,))
     #df['gpt_4_tags'] = df.apply(generate_tags, axis=1, args=(logger,))
-    
-    df[['gpt_4_generated_summaries', 'gpt_4_tags']] = df.apply(generated_sum_tags_together, axis=1).apply(pd.Series)
-    df.to_csv(os.path.join(root_filepath, 'data', 'gpt_4_summaries.csv'), index=False)
+    #df[['gpt_4_generated_summaries', 'gpt_4_tags']] = df.apply(generated_sum_tags_together, axis=1).apply(pd.Series)
+    #df.to_csv(save_filepath, index=False)
 
 main()

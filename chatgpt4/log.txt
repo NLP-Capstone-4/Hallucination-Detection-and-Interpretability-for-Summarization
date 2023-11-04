@@ -1,0 +1,10 @@
+2023-11-04 12:21:23,826 - my_logger - INFO - Successfully infered conv_id:21
+2023-11-04 12:21:37,086 - my_logger - INFO - Successfully infered conv_id:22
+2023-11-04 12:21:49,939 - my_logger - INFO - Successfully infered conv_id:20
+2023-11-04 12:22:04,614 - my_logger - INFO - Successfully infered conv_id:220
+2023-11-04 12:22:18,314 - my_logger - INFO - Successfully infered conv_id:219
+2023-11-04 12:22:34,349 - my_logger - INFO - Successfully infered conv_id:145
+2023-11-04 12:22:48,225 - my_logger - INFO - Successfully infered conv_id:149
+2023-11-04 12:23:04,012 - my_logger - INFO - Successfully infered conv_id:155
+2023-11-04 12:23:17,384 - my_logger - INFO - Successfully infered conv_id:180
+2023-11-04 12:23:31,017 - my_logger - INFO - Successfully infered conv_id:182
