@@ -174,7 +174,99 @@ def generated_sum_tags_together(row, logger):
     except Exception as e:
         logger.error(e)
     return (generated_summ, generated_tags)
-        
+
+def zero_shot_summ_without_gold(row, logger):
+    dialogue = row[1]
+    prompt_1 = """You are very good at conversation summarization. Given a conversation between multiple, generate a 20-25 words summary that captures important aspects of the conversation. The generated summary should be in an assertive tone.
+    Conversation: 
+    """
+    prompt_2 = """
+    Summary: 
+    """
+
+    summary = ""
+    try:
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": prompt_1 + str(row[1]) + prompt_2
+            }
+        ],
+        temperature=0.001,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+        )
+        #result = response.json()
+        choices = response['choices']
+        if len(choices) > 0:
+            summary = choices[0]['message']['content']
+            logger.info("Successfully infered conv_id:" + str(row[0]))
+        else:
+            logger.error("Error - Conversaition ID - " + str(row[0]) + response.status_code)
+    except Exception as e:
+        logger.error(e)
+    return summary
+
+
+def one_shot_summ_without_gold(row, logger):
+    dialogue = row[1]
+    prompt_1 = """You are very good at conversation summarization. Given a conversation between multiple, generate a 20-25 words summary that captures important aspects of the conversation. The generated summary should be in an assertive tone. Here is a sample example -
+    Conversation: 
+    "Hannah: Hey, do you have Betty's number?
+    Amanda: Lemme check
+    Hannah: <file_gif>
+    Amanda: Sorry, can't find it.
+    Amanda: Ask Larry
+    Amanda: He called her last time we were at the park together
+    Hannah: I don't know him well
+    Hannah: <file_gif>
+    Amanda: Don't be shy, he's very nice
+    Hannah: If you say so..
+    Hannah: I'd rather you texted him
+    Amanda: Just text him 馃檪
+    Hannah: Urgh.. Alright
+    Hannah: Bye
+    Amanda: Bye bye"
+
+    Summary: 
+    "Hannah needs Betty's number but Amanda doesn't have it. She needs to contact Larry."
+
+    Conversation: 
+    """
+    prompt_2 = """
+    Summary: 
+    """
+
+    summary = ""
+    try:
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": prompt_1 + str(row[1]) + prompt_2
+            }
+        ],
+        temperature=0.001,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+        )
+        #result = response.json()
+        choices = response['choices']
+        if len(choices) > 0:
+            summary = choices[0]['message']['content']
+            logger.info("Successfully infered conv_id:" + str(row[0]))
+        else:
+            logger.error("Error - Conversaition ID - " + str(row[0]) + response.status_code)
+    except Exception as e:
+        logger.error(e)
+    return summary
 
 def main():
     openai.api_key = "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"
@@ -191,23 +283,23 @@ def main():
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler) 
     
-    data_filepath = os.path.join(root_filepath, 'data', 'sample_annotated_capstone_data.csv')
-    save_filepath = os.path.join(root_filepath, 'data', 'gpt_4_summaries.csv')
+    data_filepath = os.path.join(root_filepath, 'data', 'annotated_capstone_data.csv')
+    save_filepath = os.path.join(root_filepath, 'data', 'one_shot_summ_without_gold.csv')
     if not os.path.exists(save_filepath):
         save_df = pd.DataFrame(columns=['ID', 'gpt_4_generated_summaries', 'gpt_4_tags'])
         save_df.to_csv(save_filepath, index=False)
     already_processed_conv_id = set(pd.read_csv(save_filepath)['ID'])
 
     df = pd.read_csv(data_filepath) 
-    #df = df.sample(n=5)
+    df = df.head(n=100)
     
     with open(save_filepath, 'a') as fp:
         writer = csv.writer(fp)
         for index, row in df.iterrows():
             conv_id = row[0]
             if conv_id not in already_processed_conv_id:
-                (generated_summ, generated_tags) = generated_sum_tags_together(row, logger)
-                writer.writerow([conv_id, generated_summ, generated_tags])
+                generated_summ = one_shot_summ_without_gold(row, logger)
+                writer.writerow([conv_id, generated_summ])
                 time.sleep(10)
 
     # Apply the custom function to each row along axis 1 (row-wise)
