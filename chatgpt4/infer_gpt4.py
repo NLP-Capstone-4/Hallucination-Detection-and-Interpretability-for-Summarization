@@ -4,6 +4,7 @@ import os
 import openai
 import time
 import csv
+import re
 
 def query_gpt4(row, logger):
     base_prompt_1 = """Generate a summary for the given set of dialogues by referring to the gold summary. The summary should be short, with length ranging between 10 to 15 words.
@@ -268,6 +269,91 @@ def one_shot_summ_without_gold(row, logger):
         logger.error(e)
     return summary
 
+def extract_summary_tags(data):
+    dialogues = data.split("\n\n")
+    summary_pattern = r"Summary- (.*?);"
+    tags_pattern = r"Tags- (.*?)\n"
+    summary_match = re.search(summary_pattern, data)
+    tags_match = re.search(tags_pattern, data)
+    summary = summary_match.group(1) if summary_match else None
+    tags = tags_match.group(1) if tags_match else None
+    return (summary, tags)
+
+def one_shot_summ_tags(row, logger):
+    dialogue = row[1]
+    prompt_1 = """You are very good at conversation summarization. Given a conversation between multiple, generate a 20-25 words summary that captures important aspects of the conversation. The generated summary should be in an assertive tone.
+    Further, do token-level classification on the summary based on whether it is hallucinated or not. Use the following tag classes to label each token of the summary. 
+    
+    O = Not Hallucinated,
+    W =  Wrong person reference,
+    C = Circumstantial error,
+    OB = Object error,
+    N = uncommon errors like tense errors 
+    M = Missing information
+    The tag M should only be added at the end of the sequence incase the summary is missing any information and not as a tag specific to a word in the summary. 
+
+    Conversation- "Hannah: Hey, do you have Betty's number?
+    Amanda: Lemme check
+    Hannah: <file_gif>
+    Amanda: Sorry, can't find it.
+    Amanda: Ask Larry
+    Amanda: He called her last time we were at the park together
+    Hannah: I don't know him well
+    Hannah: <file_gif>
+    Amanda: Don't be shy, he's very nice
+    Hannah: If you say so..
+    Hannah: I'd rather you texted him
+    Amanda: Just text him 馃檪
+    Hannah: Urgh.. Alright
+    Hannah: Bye
+    Amanda: Bye bye"
+
+    Summary- "Amanda can't find Betty's number. Larry called her last time they were at the park together. Amanda will text Larry."
+
+    Tags- "O O O O O O O O O O O O O O O O O O W O O O O"
+
+    Explanation- Let's think step by step. The dialogue is about Hannah asking for Betty's number to Amanda, who couldn't find it and suggests to ask Larry for it since he had called her(Betty) the last time they were in the park together. Hannah doesn't know him(Larry) well and is shy to text him, but Amanda asks her to do it anyway.  So according to the summary, "Amanda will text Larry" is incorrect. The way to correct this information is the token Amanda can be changed to Hannah. This is Wrong Reference (W) from the tokens described above. All other tokens are correct and are thus Not Hallucinated (O).
+
+    Similarly, for the next dialogue, generate summary of all the dialogues and tags for the summary. Think step by step to explain it.
+    Conversation- """
+    
+    prompt_2 = """
+    Summary- 
+
+    Tags- 
+
+    Explanation- 
+    """
+
+    summary = ""
+    tags = ""
+    try:
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": prompt_1 + str(row[1]) + prompt_2
+            }
+        ],
+        temperature=0.001,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+        )
+        #result = response.json()
+        choices = response['choices']
+        if len(choices) > 0:
+            data = choices[0]['message']['content']
+            (summary, tags) = extract_summary_tags(data)
+            logger.info("Successfully infered conv_id:" + str(row[0]))
+        else:
+            logger.error("Error - Conversaition ID - " + str(row[0]) + response.status_code)
+    except Exception as e:
+        logger.error(e)
+    return (summary, tags)
+
 def main():
     openai.api_key = "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"
     code_filepath = os.path.dirname(os.path.abspath(__file__))
@@ -284,22 +370,22 @@ def main():
     logger.addHandler(file_handler) 
     
     data_filepath = os.path.join(root_filepath, 'data', 'annotated_capstone_data.csv')
-    save_filepath = os.path.join(root_filepath, 'data', 'one_shot_summ_without_gold.csv')
+    save_filepath = os.path.join(root_filepath, 'data', 'one_shot_summ_tags.csv')
     if not os.path.exists(save_filepath):
         save_df = pd.DataFrame(columns=['ID', 'gpt_4_generated_summaries', 'gpt_4_tags'])
         save_df.to_csv(save_filepath, index=False)
     already_processed_conv_id = set(pd.read_csv(save_filepath)['ID'])
 
     df = pd.read_csv(data_filepath) 
-    df = df.head(n=100)
+    df = df.head(n=10)
     
     with open(save_filepath, 'a') as fp:
         writer = csv.writer(fp)
         for index, row in df.iterrows():
             conv_id = row[0]
             if conv_id not in already_processed_conv_id:
-                generated_summ = one_shot_summ_without_gold(row, logger)
-                writer.writerow([conv_id, generated_summ])
+                (summary, tags) = one_shot_summ_tags(row, logger)
+                writer.writerow([conv_id, summary, tags])
                 time.sleep(10)
 
     # Apply the custom function to each row along axis 1 (row-wise)
