@@ -1311,7 +1311,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
 
     def __init__(self, config: BartConfig):
         super().__init__(config)
-        self.num_labels = 7
+        self.num_labels = 9
         self.model = BartModel(config)
         self.register_buffer("final_logits_bias", torch.zeros((1, self.model.shared.num_embeddings)))
         self.lm_head = nn.Linear(config.d_model, self.model.shared.num_embeddings, bias=False)
@@ -1411,20 +1411,20 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
 
         # print(f" shape of output of classifier layer: {linear_logits.shape}") 
         
-        # print(f" shape of tags: {tags.cpu()}")# bs x token_len
+        # print(f" shape of tags: {decoder_tags.cpu()}") # bs x token_len
         
         lm_logits = self.lm_head(outputs[0])
         lm_logits = lm_logits + self.final_logits_bias.to(lm_logits.device)
 
-        # print(f" after view: {linear_logits.view(-1, self.num_labels).shape}")
+        # print(f" after view: {linear_logits.view(-1, self.num_labels)}")
 
-        # print(f" tags after view: {tags.view(-1)}")
+        # print(f" tags after view: {decoder_tags.view(-1)}")
         # if decoder_tags is None:
         #     print("Tags are none")
         loss = None
         if decoder_tags is not None:
             decoder_tags = decoder_tags.to(linear_logits.device)
-            tags_loss_fct = CrossEntropyLoss(ignore_index=-100, weight=torch.tensor([1.0,1.0,1.0,1.0,1.0,1.0,0.0]).to(lm_logits.device))
+            tags_loss_fct = CrossEntropyLoss()
             loss = tags_loss_fct(linear_logits.view(-1, self.num_labels), decoder_tags.view(-1))
 
         # print(f"loss for classifying into tags: {loss.item()}")
