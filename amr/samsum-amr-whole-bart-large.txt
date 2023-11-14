@@ -1,0 +1,1208 @@
+# ::snt Hannah: Hey, do you have Betty's number?
+Amanda: Lemme check
+Hannah: <file_gif>
+Amanda: Sorry, can't find it.
+Amanda: Ask Larry
+Amanda: He called her last time we were at the park together
+Hannah: I don't know him well
+Hannah: <file_gif>
+Amanda: Don't be shy, he's very nice
+Hannah: If you say so..
+Hannah: I'd rather you texted him
+Amanda: Just text him 🙂
+Hannah: Urgh.. Alright
+Hannah: Bye
+Amanda: Bye bye
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Hannah"))
+            :ARG1 (h / have-03
+                  :ARG0 (y / you)
+                  :ARG1 (n2 / number
+                        :poss (p2 / person
+                              :name (n3 / name
+                                    :op1 "Betty")))
+                  :polarity (a / amr-unknown)
+                  :mod (h2 / hey
+                        :mode expressive)))
+      :snt2 (s2 / say-01
+            :ARG0 (p3 / person
+                  :name (n4 / name
+                        :op1 "Procurent"
+                        :op2 "Amanda"))
+            :ARG1 (c / check-01
+                  :ARG0 p3
+                  :ARG1 (s3 / string-entity
+                        :value "repeccativos")))
+      :snt3 (s4 / say-01
+            :ARG0 (p4 / person
+                  :name (n5 / name
+                        :op1 "Procurent"
+                        :op2 "Amanda"))
+            :ARG1 (s5 / sorry-01
+                  :ARG1 p4
+                  :ARG2 (p5 / possible-01
+                        :polarity -
+                        :ARG1 (f / find-01
+                              :ARG0 p4
+                              :ARG1 (s6 / string-entity
+                                    :value "repeccativos")))))
+      :snt4 (a2 / ask-01
+            :mode imperative
+            :ARG0 (y2 / you)
+            :ARG2 (p6 / person
+                  :name (n6 / name
+                        :op1 "Larry")))
+      :snt5 (c2 / call-02
+            :ARG0 (h3 / he)
+            :ARG1 (s7 / she)
+            :time (b / be-located-at-91
+                  :ARG1 (w / we)
+                  :ARG2 (p7 / park)
+                  :mod (t / together))
+            :ARG1-of (s8 / say-01
+                  :ARG0 (p8 / person
+                        :name (n7 / name
+                              :op1 "Procurent"
+                              :op2 "Amanda"))))
+      :snt6 (s9 / say-01
+            :ARG0 p8
+            :ARG1 (h4 / have-condition-91
+                  :ARG1 (p9 / prefer-01
+                        :ARG0 (ii / i)
+                        :ARG1 (t2 / text-01
+                              :ARG0 (y3 / you)
+                              :ARG2 (h5 / he)))
+                  :ARG2 (s10 / say-01
+                        :ARG0 y3
+                        :ARG1 (t3 / text-01
+                              :ARG0 y3
+                              :ARG1 h5))))
+      :snt7 (s11 / say-01
+            :ARG0 (p10 / person
+                  :name (n8 / name
+                        :op1 "Hyndon"))
+            :ARG1 (b2 / bye))
+      :snt8 (u / urgh
+            :mode expressive)
+      :snt9 (s12 / say-01
+            :ARG0 ii)
+      :ARG1 (a3 / all-right))
+******************************
+# ::snt Hannah needs Betty's number but Amanda doesn't have it. She needs to contact Larry.
+(m / multi-sentence
+      :snt1 (c / contrast-01
+            :ARG1 (n / need-01
+                  :ARG0 (p / person
+                        :name (n2 / name
+                              :op1 "Hannah"))
+                  :ARG1 (n3 / number
+                        :poss (p2 / person
+                              :name (n4 / name
+                                    :op1 "Betty"))))
+            :ARG2 (h / have-03
+                  :polarity -
+                  :ARG0 (p3 / person
+                        :name (n5 / name
+                              :op1 "Amanda"))
+                  :ARG1 n3))
+      :snt2 (n6 / need-01
+            :ARG0 (s / she)
+            :ARG1 (c2 / contact-01
+                  :ARG0 s
+                  :ARG1 (p4 / person
+                        :name (n7 / name
+                              :op1 "Larry")))))
+
+------------------------------------------------------------
+# ::snt Eric: MACHINE!
+Rob: That's so gr8!
+Eric: I know! And shows how Americans see Russian ;)
+Rob: And it's really funny!
+Eric: I know! I especially like the train part!
+Rob: Hahaha! No one talks to the machine like that!
+Eric: Is this his only stand-up?
+Rob: Idk. I'll check.
+Eric: Sure.
+Rob: Turns out no! There are some of his stand-ups on youtube.
+Eric: Gr8! I'll watch them now!
+Rob: Me too!
+Eric: MACHINE!
+Rob: MACHINE!
+Eric: TTYL?
+Rob: Sure :)
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Eric"))
+            :ARG1 (m2 / machine))
+      :snt2 (s2 / say-01
+            :ARG0 (p2 / person
+                  :name (n2 / name
+                        :op1 "Ruth"
+                        :op2 "Glenn"))
+            :ARG1 (a / and
+                  :op1 (h / have-degree-91
+                        :ARG1 (t / that)
+                        :ARG2 (g / great)
+                        :ARG3 (s3 / so))
+                  :op2 (s4 / show-01
+                        :ARG0 t
+                        :ARG1 (t2 / thing
+                              :manner-of (s5 / see-01
+                                    :ARG0 (p3 / person
+                                          :mod (c / country
+                                                :name (n3 / name
+                                                      :op1 "United"
+                                                      :op2 "States")))
+                                    :ARG1 (t3 / thing
+                                          :ARG1-of (s6 / say-01
+                                                :ARG0 (p4 / person
+                                                      :name (n4 / name
+                                                            :op1 "Russian")))))))
+                  :op3 (f / funny-02
+                        :ARG1 (ii / it)
+                        :degree (r / really))))
+      :snt3 (s7 / say-01
+            :ARG0 (p5 / person
+                  :name (n5 / name
+                        :op1 "Ruth"
+                        :op2 "Glenn"))
+            :ARG1 (a2 / and
+                  :op1 (k / know-01
+                        :ARG0 (ii2 / i))
+                  :op2 (w / watch-01
+                        :ARG0 (ii3 / i)
+                        :ARG1 (s8 / stand-up-07
+                              :quant (s9 / some)
+                              :ARG1-of (ii4 / include-91
+                                    :ARG2 (s10 / stand-up-07
+                                          :ARG0 (h2 / he)))
+                              :medium (p6 / publication
+                                    :name (n6 / name
+                                          :op1 "YouTube"))))))
+      :snt4 (s11 / say-01
+            :ARG0 (p7 / person
+                  :name (n7 / name
+                        :op1 "Ruth"
+                        :op2 "Glenn"))
+            :ARG1 (s12 / sure-02
+                  :ARG0 (ii5 / i)))
+      :snt5 (s13 / say-01
+            :ARG0 (p8 / person
+                  :name (n8 / name
+                        :op1 "Ruth"
+                        :op2 "Glenn"
+                        :op3 "Smith"))
+            :ARG1 (t4 / typo
+                  :domain (a3 / amr-unknown)))
+      :snt6 (s14 / say-01
+            :ARG0 (ii6 / i)
+            :ARG1 (c2 / check-01
+                  :ARG0 ii6)))
+******************************
+# ::snt Eric and Rob are going to watch a stand-up on youtube.
+(w / watch-01
+      :ARG0 (a / and
+            :op1 (p / person
+                  :name (n / name
+                        :op1 "Eric"))
+            :op2 (p2 / person
+                  :name (n2 / name
+                        :op1 "Rob")))
+      :ARG1 (s / stand-up-07
+            :medium (p3 / publication
+                  :name (n3 / name
+                        :op1 "YouTube"))))
+
+------------------------------------------------------------
+# ::snt Lenny: Babe, can you help me with something?
+Bob: Sure, what's up?
+Lenny: Which one should I pick?
+Bob: Send me photos
+Lenny:  <file_photo>
+Lenny:  <file_photo>
+Lenny:  <file_photo>
+Bob: I like the first ones best
+Lenny: But I already have purple trousers. Does it make sense to have two pairs?
+Bob: I have four black pairs :D :D
+Lenny: yeah, but shouldn't I pick a different color?
+Bob: what matters is what you'll give you the most outfit options
+Lenny: So I guess I'll buy the first or the third pair then
+Bob: Pick the best quality then
+Lenny: ur right, thx
+Bob: no prob :)
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Lenny"))
+            :ARG1 (p2 / possible-01
+                  :ARG1 (h / help-01
+                        :ARG0 (p3 / person
+                              :name (n2 / name
+                                    :op1 "Babe"))
+                        :ARG1 (s2 / something)
+                        :ARG2 p)
+                  :ARG1-of (s3 / sure-02)))
+      :snt2 (s4 / say-01
+            :ARG0 (p4 / person
+                  :name (n3 / name
+                        :op1 "Peru"))
+            :ARG1 (c / contrast-01
+                  :ARG1 (h2 / have-03
+                        :ARG0 (ii / i)
+                        :ARG1 (p5 / pair
+                              :quant 2
+                              :ARG1-of (b / black-04)))
+                  :ARG2 (r / recommend-01
+                        :polarity -
+                        :ARG1 (p6 / pick-01
+                              :ARG0 ii
+                              :ARG1 (c2 / color
+                                    :ARG1-of (d / differ-02))))))
+      :snt3 (s5 / say-01
+            :ARG0 (p7 / person
+                  :name (n4 / name
+                        :op1 "Peru"))
+            :ARG1 (c3 / contrast-01
+                  :ARG1 (m2 / matter-01
+                        :ARG1 (o / option
+                              :mod (o2 / outfit)
+                              :quant (m3 / most)
+                              :poss p7))
+                  :ARG2 (p8 / pick-01
+                        :ARG0 p7
+                        :ARG1 (q / quality
+                              :ARG1-of (h3 / have-degree-91
+                                    :ARG2 (g / good-02
+                                          :ARG1 q)
+                                    :ARG3 m3)))))
+      :snt4 (s6 / say-01
+            :ARG0 (p9 / person
+                  :name (n5 / name
+                        :op1 "Peru"))
+            :ARG1 (n6 / no-brainer
+                  :domain p8)
+            :ARG2 (p10 / person
+                  :name (n7 / name
+                        :op1 "Peru"))))
+******************************
+# ::snt Lenny can't decide which trousers to buy. Bob advised Lenny on that topic. Lenny goes with Bob's advice to pick the trousers that are of best quality.
+(m / multi-sentence
+      :snt1 (p / possible-01
+            :polarity -
+            :ARG1 (d / decide-01
+                  :ARG0 (p2 / person
+                        :name (n / name
+                              :op1 "Lenny"))
+                  :ARG1 (t / trousers
+                        :ARG1-of (b / buy-01
+                              :ARG0 p2))))
+      :snt2 (a / advise-01
+            :ARG0 (p3 / person
+                  :name (n2 / name
+                        :op1 "Bob"))
+            :ARG1 p2
+            :ARG2 (t2 / topic
+                  :mod (t3 / that)))
+      :snt3 (g / go-06
+            :ARG0 (p4 / person
+                  :name (n3 / name
+                        :op1 "Lenny"))
+            :ARG1 (a2 / advise-01
+                  :ARG0 p3
+                  :ARG1 p4
+                  :ARG2 (p5 / pick-01
+                        :ARG0 p4
+                        :ARG1 (t4 / trousers
+                              :ARG1-of (h / have-degree-91
+                                    :ARG2 (q / quality)
+                                    :ARG3 (m2 / most)))))))
+
+------------------------------------------------------------
+# ::snt Will: hey babe, what do you want for dinner tonight?
+Emma:  gah, don't even worry about it tonight
+Will: what do you mean? everything ok?
+Emma: not really, but it's ok, don't worry about cooking though, I'm not hungry
+Will: Well what time will you be home?
+Emma: soon, hopefully
+Will: you sure? Maybe you want me to pick you up?
+Emma: no no it's alright. I'll be home soon, i'll tell you when I get home. 
+Will: Alright, love you. 
+Emma: love you too. 
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Will"))
+            :ARG1 (w / want-01
+                  :ARG0 (p2 / person
+                        :name (n2 / name
+                              :op1 "Emma"))
+                  :ARG1 (t / thing
+                        :ARG1-of (e / eat-01
+                              :ARG0 p2)
+                        :time (d / date-entity
+                              :dayperiod (n3 / night)
+                              :mod (t2 / today)))
+                  :mod (h / hey)))
+      :snt2 (s2 / say-01
+            :ARG0 (p3 / person
+                  :name (n4 / name
+                        :op1 "Peru"))
+            :ARG1 (s3 / sure-02
+                  :ARG0 (y / you)
+                  :ARG1 (p4 / possible-01
+                        :ARG1 w
+                        :ARG0 (ii / i)
+                        :ARG1 (p5 / pick-up-04
+                              :ARG0 ii
+                              :ARG1 p2))))
+      :snt3 (s4 / say-01
+            :ARG0 (p6 / person
+                  :name (n5 / name
+                        :op1 "Will"))
+            :ARG1 (a / and
+                  :op1 (b / be-located-at-91
+                        :ARG1 (ii2 / i)
+                        :ARG2 (h2 / home)
+                        :time (s5 / soon))
+                  :op2 (t3 / tell-01
+                        :ARG0 ii2
+                        :ARG1 (o / okay-04
+                              :ARG1 (e2 / everything))
+                        :ARG2 (y2 / you)))
+            :snt4 (s6 / say-01
+                  :ARG0 (p7 / person
+                        :name (n6 / name
+                              :op1 "Emma"))
+                  :ARG1 (c / contrast-01
+                        :ARG1 (r / real-04
+                              :polarity -)
+                        :ARG2 (w2 / worry-02
+                              :polarity -
+                              :ARG0 (ii3 / it)
+                              :ARG1 (c2 / cook-01
+                                    :ARG0 ii2)
+                              :ARG1-of (h3 / have-concession-91
+                                    :ARG2 (h4 / hunger-01
+                                          :polarity -
+                                          :ARG0 ii2))))
+                  :snt5 (s7 / say-01
+                        :ARG0 (p8 / person
+                              :name (n7 / name
+                                    :op1 "Hypocrite"))
+                        :ARG1 (a2 / all-right))
+                  :snt6 (r2 / request-confirmation-91))))
+******************************
+# ::snt Emma will be home soon and she will let Will know.
+(a / and
+      :op1 (b / be-located-at-91
+            :ARG1 (p / person
+                  :name (n / name
+                        :op1 "Emma"))
+            :ARG2 (h / home)
+            :time (s / soon))
+      :op2 (l / let-know-07
+            :ARG0 p
+            :ARG1 (p2 / person
+                  :name (n2 / name
+                        :op1 "Will"))))
+
+------------------------------------------------------------
+# ::snt Ollie: Hi , are you in Warsaw
+Jane: yes, just back! Btw are you free for diner the 19th?
+Ollie: nope!
+Jane: and the  18th?
+Ollie: nope, we have this party and you must be there, remember?
+Jane: oh right! i lost my calendar..  thanks for reminding me
+Ollie: we have lunch this week?
+Jane: with pleasure!
+Ollie: friday?
+Jane: ok
+Jane: what do you mean " we don't have any more whisky!" lol..
+Ollie: what!!!
+Jane: you just call me and the all thing i heard was that sentence about whisky... what's wrong with you?
+Ollie: oh oh... very strange! i have to be carefull may be there is some spy in my mobile! lol
+Jane: dont' worry, we'll check on friday.
+Ollie: don't forget to bring some sun with you
+Jane: I can't wait to be in Morocco..
+Ollie: enjoy and see you friday
+Jane: sorry Ollie, i'm very busy, i won't have time for lunch  tomorrow, but may be at 6pm after my courses?this trip to Morocco was so nice, but time consuming!
+Ollie: ok for tea!
+Jane: I'm on my way..
+Ollie: tea is ready, did you bring the pastries?
+Jane: I already ate them all... see you in a minute
+Ollie: ok
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Ollie"))
+            :ARG1 (a / and
+                  :op1 (h / hi)
+                  :op2 (b / be-located-at-91
+                        :ARG1 p
+                        :ARG2 (c / city
+                              :name (n2 / name
+                                    :op1 "Warsaw"))
+                        :mod (j / just))))
+      :snt2 (s2 / say-01
+            :ARG0 (p2 / person
+                  :name (n3 / name
+                        :op1 "Simulan"
+                        :op2 "Pyrolean"))
+            :ARG1 (a2 / and
+                  :op1 (s3 / sorry-01
+                        :ARG1 p2
+                        :ARG2 (b2 / busy-01
+                              :ARG1 p2
+                              :ARG2 (h2 / have-03
+                                    :polarity -
+                                    :ARG0 p2
+                                    :ARG1 (t / time
+                                          :purpose (l / lunch)))))
+                  :op2 (t2 / thank-01
+                        :ARG0 p2
+                        :ARG1 p2
+                        :ARG2 (r / remind-01
+                              :ARG0 p2
+                              :ARG1 (h3 / have-06
+                                    :ARG0 (w / we)
+                                    :ARG1 (l2 / lunch)
+                                    :time (w2 / week
+                                          :mod (t3 / this)))))))
+      :snt3 (s4 / say-01
+            :ARG0 (ii / i)
+            :ARG1 (a3 / and
+                  :op1 (w3 / worry-01
+                        :polarity -
+                        :ARG0 (w4 / we))
+                  :op2 (o / obligate-01
+                        :ARG2 (c2 / check-01
+                              :ARG0 w4
+                              :time (d / date-entity
+                                    :weekday (f / friday))))
+                  :concession (c3 / contrast-01
+                        :ARG1 (n4 / nice-01
+                              :ARG1 (t4 / trip-03
+                                    :ARG0 ii
+                                    :ARG1 (c4 / country
+                                          :name (n5 / name
+                                                :op1 "Morocco")))
+                              :ARG2 (c5 / consume-01
+                                    :ARG0 t4
+                                    :ARG1 (t5 / time))))))
+      :snt4 (s5 / say-01
+            :ARG0 (ii2 / i)
+            :ARG1 (a4 / and
+                  :op1 (r2 / ready-02
+                        :ARG1 (t6 / tea))
+                  :op2 (s6 / see-01
+                        :ARG0 ii2
+                        :ARG1 (t7 / they
+                              :mod (a5 / all))
+                        :time (a6 / after
+                              :op1 (c6 / course
+                                    :poss ii2)))))
+      :ARG2 (p3 / person
+            :name (n6 / name
+                  :op1 "Simulan"
+                  :op2 "Pyrolean"))
+      :snt5 (s7 / say-01
+            :ARG0 (p4 / person
+                  :name (n7 / name
+                        :op1 "Hypo"
+                        :op3 "Jane"))
+            :ARG1 (a7 / amr-unknown
+                  :polarity (a8 / amr-unknown))
+            :ARG2 p4))
+******************************
+# ::snt Jane is in Warsaw. Ollie and Jane has a party. Jane lost her calendar. They will get a lunch this week on Friday. Ollie accidentally called Jane and talked about whisky. Jane cancels lunch. They'll meet for a tea at 6 pm.
+(m / multi-sentence
+      :snt1 (b / be-located-at-91
+            :ARG1 (p / person
+                  :name (n / name
+                        :op1 "Jane"))
+            :ARG2 (c / city
+                  :name (n2 / name
+                        :op1 "Warsaw")))
+      :snt2 (p2 / party-01
+            :ARG0 (a / and
+                  :op1 (p3 / person
+                        :name (n3 / name
+                              :op1 "Ollie"))
+                  :op2 p))
+      :snt3 (l / lose-02
+            :ARG0 (p4 / person
+                  :name (n4 / name
+                        :op1 "Jane"))
+            :ARG1 (c2 / calendar
+                  :poss p4))
+      :snt4 (a2 / and
+            :op1 (g / get-01
+                  :ARG0 (t / they)
+                  :ARG1 (l2 / lunch)
+                  :time (w / week
+                        :mod (t2 / this))
+                  :time (d / date-entity
+                        :weekday (f / friday)))
+            :op2 (t3 / talk-01
+                  :ARG0 (p5 / person
+                        :name (n5 / name
+                              :op1 "Ollie"))
+                  :ARG1 (w2 / whisky)
+                  :ARG2 p4)
+            :snt5 (c3 / cancel-01
+                  :ARG0 p4
+                  :ARG1 (l3 / lunch))
+            :snt6 (m2 / meet-03
+                  :ARG0 t)
+            :ARG1 (p6 / person
+                  :name (n6 / name
+                        :op1 "Jane"))
+            :purpose (t4 / tea)
+            :time (d2 / date-entity
+                  :time "18:00")))
+
+------------------------------------------------------------
+# ::snt Benjamin: Hey guys, what are we doing with the keys today?
+Hilary: I've got them. Whoever wants them can meet me at lunchtime or after
+Elliot: I'm ok. We're meeting for the drinks in the evening anyway and I guess we'll be going back to the apartment together?
+Hilary: Yeah, I guess so
+Daniel: I'm with Hilary atm and won't let go of her for the rest of the day, so any option you guys choose is good for me
+Benjamin: Hmm I might actually pass by at lunchtime, take the keys and go take a nap. I'm sooo tired after yesterday
+Hilary: Sounds good. We'll be having lunch with some French people (the ones who work on the history of food in colonial Mexico - I already see you yawning your head off)
+Benjamin: YAAAAWN 🙊 Where and where are you meeting?
+Hilary: So I'm meeting them at the entrance to the conference hall at 2 pm and then we'll head to this place called La Cantina. Italian cuisine, which is quite funny, but that's what they've chosen
+Benjamin: Interesting 😱 To be honest, Hilary, I almost feel like changing my mind. Wanting to take this nap might end up costing me to dear
+Hilary: Oh come on 😂
+Benjamin: All these terrible obstacles on mu way to bed might just prove to much to take
+Hilary: We'll try to avoid talking about their subject of research. Oh wait, no, I'm actually meeting them because I wanted to chat about their research lol
+Elliot: 🙉
+Hilary: Do join us, we're going to have fun. And then you'll take the keys and take this most deserved of naps
+Elliot: Sounds like a plan 😂
+Hilary: 😎
+Elliot: See you at 2 then xx
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Benjamin"))
+            :ARG1 (a / and
+                  :op1 (d / do-02
+                        :ARG0 (w / we)
+                        :ARG1 (a2 / amr-unknown)
+                        :ARG2 (k / key)
+                        :time (t / today))
+                  :op2 (g / guess-01
+                        :ARG0 w
+                        :ARG1 (s2 / so))))
+      :snt2 (s3 / say-01
+            :ARG0 (p2 / person
+                  :name (n2 / name
+                        :op1 "Hilary")
+                  :part (h / head))
+            :ARG1 (a3 / and
+                  :op1 (b / be-located-at-91
+                        :ARG1 (m2 / meet-03
+                              :ARG0 (ii / i)
+                              :ARG1 (t2 / they)
+                              :time (o / or
+                                    :op1 (l / lunch-01)
+                                    :op2 (a4 / after
+                                          :op1 l)))
+                        :op2 (h2 / head-02
+                              :ARG0 (w2 / we)
+                              :ARG1 (p3 / place
+                                    :name (n3 / name
+                                          :op1 "La"
+                                          :op2 "Cantina")
+                                    :mod (c / cuisine
+                                          :mod (c2 / country
+                                                :name (n4 / name
+                                                      :op1 "Italy"))))
+                              :mod (a5 / anyway))))
+            :snt3 (s4 / say-01
+                  :ARG0 (p4 / person
+                        :name (n5 / name
+                              :op1 "Glenn"))
+                  :ARG1 (a6 / and
+                        :op1 (p5 / possible-01
+                              :ARG1 (p6 / pass-by-17
+                                    :ARG0 (ii2 / i)
+                                    :ARG1 t2
+                                    :ARG1-of (a7 / actual-02)))
+                        :op2 (p7 / possible-01
+                              :ARG1 (h3 / have-quant-91
+                                    :ARG1 (o2 / obstacle
+                                          :ARG1-of (t3 / terrible-01)
+                                          :mod (t4 / this))
+                                    :ARG2 (m3 / much)
+                                    :ARG3 (t5 / too)
+                                    :ARG6 (t6 / take-01
+                                          :ARG0 ii2
+                                          :ARG1 (n6 / nap-01
+                                                :ARG0 ii2))))))
+            :snt4 (a8 / and
+                  :op1 (w3 / wait-01
+                        :mode imperative
+                        :ARG1 (y / you))
+                  :op2 (s5 / see-01
+                        :mode imperative
+                        :ARG0 y
+                        :ARG1 y
+                        :time (t7 / then)))
+            :snt5 (s6 / say-01
+                  :ARG0 (p8 / person
+                        :name (n7 / name
+                              :op1 "Hilary"))
+                  :ARG1 (a9 / and
+                        :op1 (j / join-04
+                              :mode imperative
+                              :ARG0 y
+                              :ARG1 (w4 / we)
+                              :ARG2 (h4 / have-06
+                                    :ARG0 w4
+                                    :ARG1 (f / fun-01
+                                          :ARG0 w4)))
+                        :op2 (p9 / possible-01
+                              :ARG1 (e / end-up-03
+                                    :ARG1 (w5 / want-01
+                                          :ARG0 ii2
+                                          :ARG1 (c3 / change-01
+                                                :ARG0 ii2
+                                                :ARG1 (m4 / mind-05
+                                                      :ARG0 ii2)))))))
+            :snt6 (s7 / say-01
+                  :ARG0 (p10 / person
+                        :name (n8 / name
+                              :op1 "Glenn"))
+                  :ARG1 (c4 / cause-01
+                        :ARG0 (a10 / and
+                              :op1 (b2 / be-with-10
+                                    :ARG0 ii2
+                                    :ARG1 (p11 / person
+                                          :name (n9 / name
+                                                :op1 "Hilary"))
+                                    :ARG1-of (y2 / yawn-01
+                                          :degree (o3 / off)
+                                          :time (a11 / already)))
+                              :op2 (l2 / let-01
+                                    :ARG0 ii2
+                                    :ARG1 (g2 / go-01
+                                          :ARG1 p11))))
+                  :ARG1 (g3 / good-04
+                        :ARG1 (o4 / option
+                              :mod (a12 / any)
+                              :ARG1-of (c5 / choose-01
+                                    :ARG0 p11)))
+                  :ARG2 ii2)))
+******************************
+# ::snt Hilary has the keys to the apartment. Benjamin wants to get them and go take a nap. Hilary is having lunch with some French people at La Cantina. Hilary is meeting them at the entrance to the conference hall at 2 pm. Benjamin and Elliot might join them. They're meeting for the drinks in the evening.
+(m / multi-sentence
+      :snt1 (h / have-03
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Hilary"))
+            :ARG1 (k / key
+                  :mod (a / apartment)))
+      :snt2 (a2 / and
+            :op1 (w / want-01
+                  :ARG0 (p2 / person
+                        :name (n2 / name
+                              :op1 "Benjamin"))
+                  :ARG1 (a3 / and
+                        :op1 (g / get-01
+                              :ARG0 p2
+                              :ARG1 (t / they))
+                        :op2 (n3 / nap-01
+                              :ARG0 p2)))
+            :snt3 (l / lunch-01
+                  :ARG0 (p3 / person
+                        :name (n4 / name
+                              :op1 "Hilary"))
+                  :accompanier (p4 / person
+                        :mod (c / country
+                              :name (n5 / name
+                                    :op1 "France"))
+                        :quant (s / some))
+                  :location (f / facility
+                        :name (n6 / name
+                              :op1 "La"
+                              :op2 "Cantina")))
+            :snt4 (m2 / meet-03
+                  :ARG0 p
+                  :ARG1 (t2 / they)
+                  :location (e / entrance
+                        :destination (h2 / hall
+                              :mod (c2 / conference)))
+                  :time (d / date-entity
+                        :time "14:00"))
+            :snt5 (p5 / possible-01
+                  :ARG1 (j / join-01
+                        :ARG0 (a4 / and
+                              :op1 (p6 / person
+                                    :name (n7 / name
+                                          :op1 "Benjamin"))
+                              :op2 (p7 / person
+                                    :name (n8 / name
+                                          :op1 "Elliot")))
+                        :ARG1 (t3 / they)))
+            :snt6 (m3 / meet-03
+                  :ARG0 (t4 / they)
+                  :purpose (d2 / drink-01)
+                  :time d
+                  :dayperiod (e2 / evening))))
+
+------------------------------------------------------------
+# ::snt Max: Know any good sites to buy clothes from?
+Payton: Sure :) <file_other> <file_other> <file_other> <file_other> <file_other> <file_other> <file_other>
+Max: That's a lot of them!
+Payton: Yeah, but they have different things so I usually buy things from 2 or 3 of them.
+Max: I'll check them out. Thanks. 
+Payton: No problem :)
+Max: How about u?
+Payton: What about me?
+Max: Do u like shopping?
+Payton: Yes and no.
+Max: How come?
+Payton: I like browsing, trying on, looking in the mirror and seeing how I look, but not always buying.
+Max: Y not?
+Payton: Isn't it obvious? ;)
+Max: Sry ;)
+Payton: If I bought everything I liked, I'd have nothing left to live on ;)
+Max: Same here, but probably different category ;)
+Payton: Lol
+Max: So what do u usually buy?
+Payton: Well, I have 2 things I must struggle to resist!
+Max: Which are?
+Payton: Clothes, ofc ;)
+Max: Right. And the second one?
+Payton: Books. I absolutely love reading!
+Max: Gr8! What books do u read?
+Payton: Everything I can get my hands on :)
+Max: Srsly?
+Payton: Yup :)
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Rafael"
+                        :op2 "Montenegro"))
+            :ARG1 (c / contrast-01
+                  :ARG1 (k / know-01
+                        :ARG0 p
+                        :ARG1 (s2 / site
+                              :ARG2-of (b / buy-01
+                                    :ARG0 p
+                                    :ARG1 (c2 / clothes))
+                              :ARG1-of (g / good-02))
+                        :ARG2 (s3 / sure-02))
+                  :ARG2 (o / obvious-01
+                        :polarity -
+                        :ARG1 (ii / it))))
+      :snt2 (s4 / say-01
+            :ARG0 (p2 / person
+                  :name (n2 / name
+                        :op1 "Rafael"
+                        :op2 "Papua"))
+            :ARG1 (c3 / contrast-01
+                  :ARG1 (l / like-01
+                        :ARG0 p2
+                        :ARG1 (a / and
+                              :op1 (b2 / browse-01
+                                    :ARG0 p2)
+                              :op2 (l2 / look-01
+                                    :ARG0 p2
+                                    :ARG1 (t / thing
+                                          :ARG1-of (l3 / look-02
+                                                :ARG0 p2)))
+                              :op3 (s5 / see-01
+                                    :ARG0 p2
+                                    :ARG1 (t2 / thing
+                                          :ARG1-of l3
+                                          :ARG0 p2)))))
+            :ARG2 (b3 / buy-01
+                  :ARG0 p2
+                  :ARG1 (t3 / thing
+                        :quant (o2 / or
+                              :op1 2
+                              :op2 3))
+                  :ARG2 s2
+                  :mod (u / usual)))
+      :snt3 (s6 / say-01
+            :ARG0 (p3 / person
+                  :name (n3 / name
+                        :op1 "Rafael"
+                        :op2 "Papua"))
+            :ARG1 (a2 / and
+                  :op1 (p4 / problem)
+                  :op2 (r / read-01
+                        :ARG0 p3
+                        :ARG1 (b4 / book
+                              :mod (a3 / amr-unknown)))))
+      :snt4 (s7 / say-01
+            :ARG0 (p5 / person
+                  :name (n4 / name
+                        :op1 "Rafael"
+                        :op2 "Papua"))
+            :ARG1 r
+            :ARG0 p5
+            :ARG1 (b5 / book
+                  :ord (o3 / ordinal-entity
+                        :value 2)))
+      :snt5 (s8 / say-01
+            :ARG0 (p6 / person
+                  :name (n5 / name
+                        :op1 "Rafael"
+                        :op2 "Papua"))
+            :ARG1 (y / yes))
+      :snt6 (s9 / say-01
+            :ARG0 (p7 / person
+                  :name (n6 / name
+                        :op1 "Rafael"
+                        :op2 "Papua"))
+            :ARG1 (n7 / no))
+      :snt7 (s10 / say-01
+            :ARG0 (p8 / person
+                  :name (n8 / name
+                        :op1 "Rafael"
+                        :op2 "Papua"))
+            :ARG1 (y2 / yup))
+      :snt8 (a4 / and
+            :op1 (c4 / come-01
+                  :ARG1 (a5 / amr-unknown))
+            :op2 (s11 / serious-01)))
+******************************
+# ::snt Payton provides Max with websites selling clothes. Payton likes browsing and trying on the clothes but not necessarily buying them. Payton usually buys clothes and books as he loves reading.
+(m / multi-sentence
+      :snt1 (p / provide-01
+            :ARG0 (p2 / person
+                  :name (n / name
+                        :op1 "Payton"))
+            :ARG1 (w / website
+                  :ARG0-of (s / sell-01
+                        :ARG1 (c / clothes)))
+            :ARG2 (p3 / person
+                  :name (n2 / name
+                        :op1 "Max")))
+      :snt2 (c2 / contrast-01
+            :ARG1 (l / like-01
+                  :ARG0 (p4 / person
+                        :name (n3 / name
+                              :op1 "Payton"))
+                  :ARG1 (a / and
+                        :op1 (b / browse-01
+                              :ARG0 p4
+                              :ARG1 (c3 / clothes))
+                        :op2 (t / try-04
+                              :ARG0 p4
+                              :ARG1 c3)))
+            :ARG2 (n4 / need-01
+                  :polarity -
+                  :ARG1 (b2 / buy-01
+                        :ARG0 p4
+                        :ARG1 c3)))
+      :snt3 (b3 / buy-01
+            :ARG0 (p5 / person
+                  :name (n5 / name
+                        :op1 "Payton"))
+            :ARG1 (a2 / and
+                  :op1 (c4 / clothes)
+                  :op2 (b4 / book))
+            :mod (u / usual)
+            :ARG1-of (c5 / cause-01
+                  :ARG0 (l2 / love-01
+                        :ARG0 p5
+                        :ARG1 (r / read-01
+                              :ARG0 p5)))))
+
+------------------------------------------------------------
+# ::snt Rita: I'm so bloody tired. Falling asleep at work. :-(
+Tina: I know what you mean.
+Tina: I keep on nodding off at my keyboard hoping that the boss doesn't notice..
+Rita: The time just keeps on dragging on and on and on.... 
+Rita: I keep on looking at the clock and there's still 4 hours of this drudgery to go.
+Tina: Times like these I really hate my work.
+Rita: I'm really not cut out for this level of boredom.
+Tina: Neither am I.
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Rita"))
+            :ARG1 (t / tire-01
+                  :ARG1 p
+                  :mod (b / bloody)
+                  :degree (s2 / so)))
+      :snt2 (s3 / say-01
+            :ARG0 (p2 / person
+                  :name (n2 / name
+                        :op1 "Tina"))
+            :ARG1 (k / know-01
+                  :ARG0 p2
+                  :ARG1 (t2 / thing
+                        :ARG2-of (m2 / mean-01
+                              :ARG0 (y / you))))
+            :time (f / fall-07
+                  :ARG1 p2
+                  :ARG2 (s4 / sleep-01
+                        :ARG0 p2)
+                  :location (w / work-01
+                        :ARG0 p2)))
+      :snt3 (s5 / say-01
+            :ARG0 (p3 / person
+                  :name (n3 / name
+                        :op1 "Rita"))
+            :ARG1 (c / cut-out-09
+                  :polarity -
+                  :ARG1 p3
+                  :ARG2 (t3 / thing
+                        :degree-of (b2 / bore-02
+                              :ARG0 p3
+                              :ARG1 p3)
+                        :mod (t4 / this))
+                  :degree (r / really)))
+      :snt4 (s6 / say-01
+            :ARG0 (p4 / person
+                  :name (n4 / name
+                        :op1 "Rita"))
+            :ARG1 (a / and
+                  :op1 (k2 / keep-02
+                        :ARG0 p4
+                        :ARG1 (l / look-01
+                              :ARG0 p4
+                              :ARG1 (c2 / clock)))
+                  :op2 (k3 / keep-02
+                        :ARG0 p4
+                        :ARG1 (g / go-06
+                              :ARG0 p4
+                              :ARG1 (d / drudgery
+                                    :mod (t5 / this))
+                              :duration (t6 / temporal-quantity
+                                    :quant 4
+                                    :unit (h / hour))
+                              :mod (s7 / still))))
+            :ARG1-of (r2 / request-confirmation-91))
+      :snt5 (s8 / say-01
+            :ARG0 (ii / i)
+            :ARG1 a
+            :op1 (k4 / keep-02
+                  :ARG0 ii
+                  :ARG1 (d2 / drag-01
+                        :ARG1 (t7 / time)
+                        :mod (j / just)
+                        :op2-of s8)))
+      :ARG1-of r2)
+******************************
+# ::snt Rita and Tina are bored at work and have still 4 hours left.
+(a / and
+      :op1 (b / bore-02
+            :ARG0 (w / work-01
+                  :ARG0 (a2 / and
+                        :op1 (p / person
+                              :name (n / name
+                                    :op1 "Rita"))
+                        :op2 (p2 / person
+                              :name (n2 / name
+                                    :op1 "Tina"))))
+            :ARG1 a2)
+      :op2 (l / leave-17
+            :ARG0 a2
+            :ARG1 (t / temporal-quantity
+                  :quant 4
+                  :unit (h / hour))
+            :mod (s / still)))
+
+------------------------------------------------------------
+# ::snt Beatrice: I am in town, shopping. They have nice scarfs in the shop next to the church. Do you want one?
+Leo: No, thanks
+Beatrice: But you don't have a scarf.
+Leo: Because I don't need it.
+Beatrice: Last winter you had a cold all the time. A scarf could help.
+Leo: I don't like them.
+Beatrice: Actually, I don't care. You will get a scarf.
+Leo: How understanding of you!
+Beatrice: You were complaining the whole winter that you're going to die. I've had enough.
+Leo: Eh.
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Beatrice"))
+            :ARG1 (a / and
+                  :op1 (b / be-located-at-91
+                        :ARG1 (ii / i)
+                        :ARG2 (t / town))
+                  :op2 (s2 / shop-01
+                        :ARG0 ii)))
+      :snt2 (s3 / say-01
+            :ARG0 (p2 / person
+                  :name (n2 / name
+                        :op1 "Glenn"
+                        :op2 "Paterno"))
+            :ARG1 (a2 / and
+                  :op1 (w / want-01
+                        :ARG0 (y / you)
+                        :ARG1 (s4 / scarf)
+                        :polarity (a3 / amr-unknown))
+                  :op2 (h / have-03
+                        :ARG0 y
+                        :ARG1 (s5 / scarf
+                              :ARG1-of (n3 / nice-01))
+                        :location (s6 / shop
+                              :location (n4 / next-to
+                                    :op1 (c / church))))))
+      :snt3 (s7 / say-01
+            :ARG0 (p3 / person
+                  :name (n5 / name
+                        :op1 "Glenn"
+                        :op2 "Paterno"))
+            :ARG1 (a4 / and
+                  :op1 (h2 / have-03
+                        :ARG0 (y2 / you)
+                        :ARG1 (c2 / cold-01
+                              :ARG1 y2
+                              :time (w2 / winter
+                                    :mod (l / last))))
+                  :op2 (c3 / care-01
+                        :polarity -
+                        :ARG0 (ii2 / i)
+                        :ARG1-of (a5 / actual-02))))
+      :snt4 (s8 / say-01
+            :ARG0 (p4 / person
+                  :name (n6 / name
+                        :op1 "Glenn"
+                        :op2 "Paterno"))
+            :ARG1 (c4 / contrast-01
+                  :ARG2 (h3 / have-03
+                        :polarity -
+                        :ARG0 (y3 / you)
+                        :ARG1 (s9 / scarf))))
+      :snt5 (s10 / say-01
+            :ARG0 (p5 / person
+                  :name (n7 / name
+                        :op1 "Glenn"
+                        :op2 "Paterno"))
+            :ARG1 (h4 / have-quant-91
+                  :ARG1 (t2 / thing)
+                  :ARG3 (e / enough))))
+******************************
+# ::snt Beatrice wants to buy Leo a scarf, but he doesn't like scarves. She cares about his health and will buy him a scarf no matter his opinion.
+(m / multi-sentence
+      :snt1 (c / contrast-01
+            :ARG1 (w / want-01
+                  :ARG0 (p / person
+                        :name (n / name
+                              :op1 "Beatrice"))
+                  :ARG1 (b / buy-01
+                        :ARG0 p
+                        :ARG1 (s / scarf)
+                        :ARG4 (p2 / person
+                              :name (n2 / name
+                                    :op1 "Leo"))))
+            :ARG2 (d / dislike-01
+                  :ARG0 p2
+                  :ARG1 (s2 / scarf)))
+      :snt2 (a / and
+            :op1 (c2 / care-01
+                  :ARG0 (s3 / she)
+                  :ARG1 (h / health
+                        :poss (h2 / he)))
+            :op2 (b2 / buy-01
+                  :ARG0 s3
+                  :ARG1 (s4 / scarf)
+                  :ARG4 h2
+                  :ARG1-of (r / regardless-91
+                        :ARG2 (o / opine-01
+                              :ARG0 h2)))))
+
+------------------------------------------------------------
+# ::snt Ivan: hey eric
+Eric: yeah man
+Ivan: so youre coming to the wedding
+Eric: your brother's
+Ivan: yea
+Eric: i dont know mannn
+Ivan: YOU DONT KNOW??
+Eric: i just have a lot to do at home, plus i dont know if my parents would let me
+Ivan: ill take care of your parents
+Eric: youre telling me you have the guts to talk to them XD
+Ivan: thats my problem
+Eric: okay man, if you say so
+Ivan: yea just be there 
+Eric: alright
+(m / multi-sentence
+      :snt1 (s / say-01
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Ivan"))
+            :ARG1 (h / hey)
+            :ARG2 (p2 / person
+                  :name (n2 / name
+                        :op1 "Eric")))
+      :snt2 (s2 / say-01
+            :ARG0 p2
+            :ARG1 (a / and
+                  :op1 (c / come-01
+                        :ARG1 (y / you)
+                        :ARG4 (w / wed-01))
+                  :op2 (h2 / have-03
+                        :ARG0 y
+                        :ARG1 (p3 / person
+                              :ARG0-of (h3 / have-rel-role-91
+                                    :ARG1 (y2 / you
+                                          :ARG2 (b / brother))))))
+            :snt3 (a2 / and
+                  :op1 (k / know-01
+                        :polarity -
+                        :ARG0 (ii / i))
+                  :op2 (k2 / know-01
+                        :polarity -
+                        :ARG0 ii
+                        :ARG1 (l / let-01
+                              :ARG0 (p4 / person
+                                    :ARG0-of (h4 / have-rel-role-91
+                                          :ARG1 ii
+                                          :ARG2 (p5 / parent)))
+                              :ARG1 (c2 / care-03
+                                    :ARG0 ii
+                                    :ARG1 p4))))
+            :snt4 (s3 / say-01
+                  :ARG0 (p6 / person
+                        :name (n3 / name
+                              :op1 "subevent"
+                              :op2 "of ( have-rel-role-91_2 :ARG1 ( you_1 ) :ARG2 ( partner ) ) ) :ARG1 ( tell-01 :ARG0 you_1 :ARG1 ( have-03_1 :ARG0 you_1 :ARG1 ( guts ) :purpose ( talk-01 :ARG0 you_1 :ARG2 person_3 ) ) ) :ARG2 ( i_1 ) :ARG1-of ( okay-01 ) ) ) :snt5 ( say-01_3 :ARG0 ( person_5 :name ( name_3 :op1 ")))))
+******************************
+# ::snt Eric doesn't know if his parents let him go to Ivan's brother's wedding. Ivan will talk to them.
+(m / multi-sentence
+      :snt1 (k / know-01
+            :polarity -
+            :ARG0 (p / person
+                  :name (n / name
+                        :op1 "Eric"))
+            :ARG1 (t / truth-value
+                  :polarity-of (l / let-01
+                        :ARG0 (p2 / person
+                              :ARG0-of (h / have-rel-role-91
+                                    :ARG1 p
+                                    :ARG2 (p3 / parent)))
+                        :ARG1 (g / go-02
+                              :ARG0 p
+                              :ARG4 (w / wed-01
+                                    :ARG1 (p4 / person
+                                          :ARG0-of (h2 / have-rel-role-91
+                                                :ARG1 (p5 / person
+                                                      :name (n2 / name
+                                                            :op1 "Ivan"))
+                                                :ARG2 (b / brother))))))))
+      :snt2 (t2 / talk-01
+            :ARG0 p5
+            :ARG2 (t3 / they)))
+
+------------------------------------------------------------
