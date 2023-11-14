@@ -1,10 +1,2 @@
-2023-11-07 08:26:45,704 - my_logger - INFO - Successfully infered conv_id:0
-2023-11-07 08:27:06,309 - my_logger - INFO - Successfully infered conv_id:1
-2023-11-07 08:27:26,099 - my_logger - INFO - Successfully infered conv_id:2
-2023-11-07 08:27:42,671 - my_logger - INFO - Successfully infered conv_id:3
-2023-11-07 08:28:05,796 - my_logger - INFO - Successfully infered conv_id:4
-2023-11-07 08:28:26,382 - my_logger - INFO - Successfully infered conv_id:5
-2023-11-07 08:28:52,463 - my_logger - INFO - Successfully infered conv_id:6
-2023-11-07 08:29:19,720 - my_logger - INFO - Successfully infered conv_id:7
-2023-11-07 08:29:41,831 - my_logger - INFO - Successfully infered conv_id:8
-2023-11-07 08:30:10,095 - my_logger - INFO - Successfully infered conv_id:9
+2023-11-14 11:54:15,802 - my_logger - INFO - Successfully infered conv_id:0
+2023-11-14 11:54:36,080 - my_logger - INFO - Successfully infered conv_id:1

@@ -269,16 +269,21 @@ def one_shot_summ_without_gold(row, logger):
         logger.error(e)
     return summary
 
-def extract_summary_tags(data):
-    dialogues = data.split("\n\n")
-    summary_pattern = r"Summary- (.*?);"
-    tags_pattern = r"Tags- (.*?)\n"
-    summary_match = re.search(summary_pattern, data)
-    tags_match = re.search(tags_pattern, data)
-    summary = summary_match.group(1) if summary_match else None
-    tags = tags_match.group(1) if tags_match else None
-    return (summary, tags)
+def extract_summary_tags(text):
+    summary_pattern = r'Summary- "(.*?)"\s*\n'
+    tags_pattern = r'Tags- "(.*?)"\s*\n'
+    explanation_pattern = r'Explanation- (.*?)$'
 
+    summary = re.search(summary_pattern, text, re.DOTALL)
+    tags = re.search(tags_pattern, text, re.DOTALL)
+    explanation = re.search(explanation_pattern, text, re.DOTALL)
+
+    summary_text = summary.group(1) if summary else None
+    tags_text = tags.group(1) if tags else None
+    explanation_text = explanation.group(1) if explanation else None
+
+    return summary_text, tags_text, explanation_text
+    
 def one_shot_summ_tags(row, logger):
     dialogue = row[1]
     prompt_1 = """You are very good at conversation summarization. Given a conversation between multiple, generate a 20-25 words summary that captures important aspects of the conversation. The generated summary should be in an assertive tone.
@@ -327,6 +332,7 @@ def one_shot_summ_tags(row, logger):
 
     summary = ""
     tags = ""
+    explanation = ""
     try:
         response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -346,13 +352,13 @@ def one_shot_summ_tags(row, logger):
         choices = response['choices']
         if len(choices) > 0:
             data = choices[0]['message']['content']
-            (summary, tags) = extract_summary_tags(data)
+            (summary, tags, explanation) = extract_summary_tags(data)
             logger.info("Successfully infered conv_id:" + str(row[0]))
         else:
             logger.error("Error - Conversaition ID - " + str(row[0]) + response.status_code)
     except Exception as e:
         logger.error(e)
-    return (summary, tags)
+    return (summary, tags, explanation)
 
 def main():
     openai.api_key = "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"
@@ -372,20 +378,20 @@ def main():
     data_filepath = os.path.join(root_filepath, 'data', 'annotated_capstone_data.csv')
     save_filepath = os.path.join(root_filepath, 'data', 'one_shot_summ_tags.csv')
     if not os.path.exists(save_filepath):
-        save_df = pd.DataFrame(columns=['ID', 'gpt_4_generated_summaries', 'gpt_4_tags'])
+        save_df = pd.DataFrame(columns=['ID', 'gpt_4_generated_summaries', 'gpt_4_tags', 'gpt_4_explanation'])
         save_df.to_csv(save_filepath, index=False)
     already_processed_conv_id = set(pd.read_csv(save_filepath)['ID'])
 
     df = pd.read_csv(data_filepath) 
-    df = df.head(n=10)
+    df = df.head(n=2)
     
     with open(save_filepath, 'a') as fp:
         writer = csv.writer(fp)
         for index, row in df.iterrows():
             conv_id = row[0]
             if conv_id not in already_processed_conv_id:
-                (summary, tags) = one_shot_summ_tags(row, logger)
-                writer.writerow([conv_id, summary, tags])
+                (summary, tags, explanation) = one_shot_summ_tags(row, logger)
+                writer.writerow([conv_id, summary, tags, explanation])
                 time.sleep(10)
 
     # Apply the custom function to each row along axis 1 (row-wise)
