@@ -161,3 +161,9 @@ cython_debug/
 
 
 .vscode/
+
+# stored models
+config.json
+generation_config.json
+pytorch_model.bin
+

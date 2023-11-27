@@ -1311,7 +1311,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
 
     def __init__(self, config: BartConfig):
         super().__init__(config)
-        self.num_labels = 9
+        self.num_labels = 5
         self.model = BartModel(config)
         self.register_buffer("final_logits_bias", torch.zeros((1, self.model.shared.num_embeddings)))
         self.lm_head = nn.Linear(config.d_model, self.model.shared.num_embeddings, bias=False)
@@ -1427,7 +1427,6 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             tags_loss_fct = CrossEntropyLoss()
             loss = tags_loss_fct(linear_logits.view(-1, self.num_labels), decoder_tags.view(-1))
 
-        # print(f"loss for classifying into tags: {loss.item()}")
 
         masked_lm_loss = None
         if labels is not None:
@@ -1435,49 +1434,14 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             loss_fct = CrossEntropyLoss() 
             masked_lm_loss = loss_fct(lm_logits.view(-1, self.config.vocab_size), labels.view(-1))
 
-        # print(loss)
-        # print(masked_lm_loss)
-
 
         if not return_dict:
-            output = (lm_logits) + outputs[1:]
-            return ((loss + masked_lm_loss,) + output) if loss is not None else output
+            output = (linear_logits) + outputs[1:]
+            return ((loss,) + output) if loss is not None else output
 
-        print("a",linear_logits.size(0))
-        print(type(tuple(linear_logits.size())))
-        print("a",lm_logits.size(0))
-
-
-        original_tensor = linear_logits
-        new_size = lm_logits.size(0)
-        expanded_tensor = linear_logits.repeat(1, 1, 5585)
-        # repeated_tensor = original_tensor.unsqueeze(-1).repeat(1, 1, 1, new_size // original_tensor.size(2)).view(1, linear_logits.size(1), new_size)
-        print("a")
-        print(expanded_tensor.size())
-
-
-
-
-
-        s1 = torch.full(tuple(linear_logits.size()),linear_logits.size(0))
-        s1 = s1.to("cuda")
-        s2 = torch.full(tuple(lm_logits.size()), lm_logits.size(0))
-        s2 = s2.to("cuda")
-        print(s1.size())
-        print(s2.size())
-        print(linear_logits.size())
-        print(lm_logits.size())
-        custom_return_tensor =torch.cat((linear_logits, lm_logits, s1, s2 ), dim=0)
-
-        print(custom_return_tensor)
-        print(custom_return_tensor.shape)
-        # print(custom_return_tensor[0].shape)
-        # print(custom_return_tensor[1].shape)
-        print(linear_logits.shape)
-        print(lm_logits.shape)
         return Seq2SeqLMOutput(
-            loss=(loss + masked_lm_loss) if loss is not None else masked_lm_loss,
-            logits=lm_logits,
+            loss=(loss) if loss is not None else masked_lm_loss,
+            logits=linear_logits,
             past_key_values=outputs.past_key_values,
             decoder_hidden_states=outputs.decoder_hidden_states,
             decoder_attentions=outputs.decoder_attentions,
