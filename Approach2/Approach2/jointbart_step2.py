@@ -1300,6 +1300,10 @@ class BartModel(BartPreTrainedModel):
             encoder_attentions=encoder_outputs.attentions,
         )
 
+from dataclasses import dataclass
+@dataclass
+class mySeq2SeqLMOutput(Seq2SeqLMOutput):
+    linear_logits: torch.FloatTensor = None
 
 @add_start_docstrings(
     "The BART Model with a language modeling head. Can be used for summarization.", BART_START_DOCSTRING
@@ -1439,9 +1443,10 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             output = (lm_logits) + outputs[1:]
             return ((loss + masked_lm_loss,) + output) if loss is not None else output
 
-        return Seq2SeqLMOutput(
+        return mySeq2SeqLMOutput(
             loss=(loss + masked_lm_loss) if loss is not None else masked_lm_loss,
             logits=lm_logits,
+            linear_logits = linear_logits,
             past_key_values=outputs.past_key_values,
             decoder_hidden_states=outputs.decoder_hidden_states,
             decoder_attentions=outputs.decoder_attentions,
