@@ -2997,7 +2997,7 @@ class GenerationMixin:
         # init attention / hidden states / scores tuples
         scores = () if (return_dict_in_generate and output_scores) else None
         beam_indices = (
-            tuple(() for _ in range(batch_beam_size)) if (return_dict_in_generate and output_scores) else None
+            tuple(() for _ in range(batch_beam_size))
         )
         decoder_attentions = () if (return_dict_in_generate and output_attentions) else None
         cross_attentions = () if (return_dict_in_generate and output_attentions) else None
@@ -3017,7 +3017,7 @@ class GenerationMixin:
         beam_scores = beam_scores.view((batch_size * num_beams,))
 
         this_peer_finished = False  # used by synced_gpus only
-        all_linear_logits = []
+        all_linear_logits = None
         while True:
             if synced_gpus:
                 # Under synced_gpus the `forward` call must continue until all gpus complete their sequence.
@@ -3031,6 +3031,8 @@ class GenerationMixin:
 
             model_inputs = self.model.prepare_inputs_for_generation(input_ids, **model_kwargs)
 
+
+
             outputs = self.model(
                 **model_inputs,
                 return_dict=True,
@@ -3040,6 +3042,9 @@ class GenerationMixin:
             
             # todo implement 
             #if hasattr(outputs, "linear_logits"):
+                
+            linear_logits = torch.argmax(outputs.linear_logits[:, -1, :], dim = 1).reshape(-1,1)
+            all_linear_logits = torch.cat((all_linear_logits, linear_logits), dim = 1) if all_linear_logits is not None else linear_logits
                
 
             if synced_gpus and this_peer_finished:
@@ -3083,10 +3088,11 @@ class GenerationMixin:
             next_token_scores, next_tokens = torch.topk(
                 next_token_scores, max(2, 1 + n_eos_tokens) * num_beams, dim=1, largest=True, sorted=True
             )
-
+            
             next_indices = torch.div(next_tokens, vocab_size, rounding_mode="floor")
             next_tokens = next_tokens % vocab_size
-
+            
+            
             # stateless
             beam_outputs = beam_scorer.process(
                 input_ids,
@@ -3101,6 +3107,7 @@ class GenerationMixin:
             beam_scores = beam_outputs["next_beam_scores"]
             beam_next_tokens = beam_outputs["next_beam_tokens"]
             beam_idx = beam_outputs["next_beam_indices"]
+        
 
             input_ids = torch.cat([input_ids[beam_idx, :], beam_next_tokens.unsqueeze(-1)], dim=-1)
 
@@ -3110,8 +3117,7 @@ class GenerationMixin:
             if model_kwargs["past_key_values"] is not None:
                 model_kwargs["past_key_values"] = self.model._reorder_cache(model_kwargs["past_key_values"], beam_idx)
 
-            if return_dict_in_generate and output_scores:
-                beam_indices = tuple((beam_indices[beam_idx[i]] + (beam_idx[i],) for i in range(len(beam_indices))))
+            beam_indices = tuple((beam_indices[beam_idx[i]] + (beam_idx[i],) for i in range(len(beam_indices))))
 
             # increase cur_len
             cur_len = cur_len + 1
@@ -3121,6 +3127,8 @@ class GenerationMixin:
                     break
                 else:
                     this_peer_finished = True
+
+     
 
         sequence_outputs = beam_scorer.finalize(
             input_ids,
@@ -3132,14 +3140,16 @@ class GenerationMixin:
             max_length=stopping_criteria.max_length,
             beam_indices=beam_indices,
         )
-        
-        linear_logits = np.transpose(all_linear_logits)
-
+       
+        #linear_logits = torch.take_along_dim(all_linear_logits, sequence_outputs['beam_indices'][:,:-1], dim=0)
+       
+        linear_logits = all_linear_logits[0].reshape(1,-1)
+       
         if return_dict_in_generate:
             if not output_scores:
                 sequence_outputs["sequence_scores"] = None
 
-            if self.config.is_encoder_decoder:
+            if self.model.config.is_encoder_decoder:
                 return BeamSearchEncoderDecoderOutput(
                     sequences=sequence_outputs["sequences"],
                     sequences_scores=sequence_outputs["sequence_scores"],
@@ -3150,7 +3160,7 @@ class GenerationMixin:
                     decoder_attentions=decoder_attentions,
                     cross_attentions=cross_attentions,
                     decoder_hidden_states=decoder_hidden_states,
-                )
+                ), linear_logits
             else:
                 return BeamSearchDecoderOnlyOutput(
                     sequences=sequence_outputs["sequences"],
@@ -3159,7 +3169,7 @@ class GenerationMixin:
                     beam_indices=sequence_outputs["beam_indices"],
                     attentions=decoder_attentions,
                     hidden_states=decoder_hidden_states,
-                )
+                ), linear_logits
         else:
             return sequence_outputs["sequences"], linear_logits
 
