@@ -43,11 +43,12 @@ save_interval = 1000
 eval_interval = 1000
 eval_iters = 100
 log_interval = 1
+devices = 4
 
 
 #Hyperparameter
 learning_rate = 6e-4
-batch_size = 125
+batch_size = 1
 micro_batch_size = 1
 gradient_accumulation_steps = batch_size // micro_batch_size
 assert gradient_accumulation_steps > 0
@@ -68,12 +69,13 @@ hparams = {
 
 dataset = load_dataset("csv", data_files="/home/bgarg/sample_annotated_capstone_data.csv")
 
-val_dataloader = DataLoader(val_data, batch_size=micro_batch_size, num_workers=2)
+val_dataloader = DataLoader(dataset['train'], batch_size=micro_batch_size, num_workers=2)
 train_dataloader = DataLoader(
-        train_data, batch_size=micro_batch_size, num_workers=2
+        dataset['train'], batch_size=micro_batch_size, num_workers=2
     )
 
-
+for i in enumerate(train_dataloader):
+    print(i)
 devices = 4
 
 class LightningGPTModule(L.LightningModule):
@@ -123,8 +125,8 @@ strategy = FSDPStrategy(
     )
 
 trainer = L.Trainer(
-        devices=devices,
-        strategy=strategy,
+        devices=2,
+        strategy='ddp_notebook',
         precision="bf16-true",
         max_steps=max_iters,
         max_epochs=1,
@@ -134,4 +136,9 @@ trainer = L.Trainer(
         val_check_interval=eval_interval,
     )
 
+
+config = Config.from_name(model_name)
+trainer.print(f"Loading model with {config.__dict__}")
+t0 = time.perf_counter()
+model = LightningGPTModule(config)
 trainer.fit(model, train_dataloader, val_dataloader, ckpt_path="last")
