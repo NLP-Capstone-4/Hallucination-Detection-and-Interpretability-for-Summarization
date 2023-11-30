@@ -32,12 +32,49 @@ from lit_gpt import Config
 from lit_gpt.model import GPT, Block
 # from lit_gpt.speed_monitor import SpeedMonitorCallback
 from lit_gpt.utils import chunked_cross_entropy, get_default_supported_precision
+
+
+
+model_name = "Llama-2-7b-hf"
+# name = "lit-openwebtext"
+# out_dir = Path("out") / name
+# data_dir = Path("/data/aniket/openwebtext/") / name
+save_interval = 1000
+eval_interval = 1000
+eval_iters = 100
+log_interval = 1
+
+
+#Hyperparameter
+learning_rate = 6e-4
+batch_size = 125
+micro_batch_size = 1
+gradient_accumulation_steps = batch_size // micro_batch_size
+assert gradient_accumulation_steps > 0
+max_iters = 600000  # num_epochs * (epoch_size // micro_batch_size) // devices
+weight_decay = 1e-1
+beta1 = 0.9
+beta2 = 0.95
+decay_lr = True
+warmup_iters = 2000
+lr_decay_iters = max_iters
+min_lr = 6e-5
+
+hparams = {
+    k: v
+    for k, v in locals().items()
+    if isinstance(v, (int, float, str)) and not k.startswith("_")
+}
+
 dataset = load_dataset("csv", data_files="/home/bgarg/sample_annotated_capstone_data.csv")
+
 val_dataloader = DataLoader(val_data, batch_size=micro_batch_size, num_workers=2)
 train_dataloader = DataLoader(
         train_data, batch_size=micro_batch_size, num_workers=2
     )
 
+
+devices = 4
 
 class LightningGPTModule(L.LightningModule):
     def __init__(self, config: Config) -> None:
@@ -76,3 +113,25 @@ class LightningGPTModule(L.LightningModule):
         self.log("val_loss", loss, on_step=False, on_epoch=True, prog_bar=True)
 
 
+strategy = FSDPStrategy(
+        auto_wrap_policy={Block},
+        activation_checkpointing_policy={Block},
+        # the argument is not available in the Trainer strategy, but it's the default anyways
+        # state_dict_type="full",
+        limit_all_gathers=True,
+        cpu_offload=False,
+    )
+
+trainer = L.Trainer(
+        devices=devices,
+        strategy=strategy,
+        precision="bf16-true",
+        max_steps=max_iters,
+        max_epochs=1,
+        limit_val_batches=eval_iters,
+        accumulate_grad_batches=gradient_accumulation_steps,
+        log_every_n_steps=log_interval,
+        val_check_interval=eval_interval,
+    )
+
+trainer.fit(model, train_dataloader, val_dataloader, ckpt_path="last")
