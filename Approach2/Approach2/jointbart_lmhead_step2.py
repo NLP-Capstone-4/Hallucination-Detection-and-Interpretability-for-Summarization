@@ -1319,7 +1319,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
         self.model = BartModel(config)
         self.register_buffer("final_logits_bias", torch.zeros((1, self.model.shared.num_embeddings)))
         self.lm_head = nn.Linear(config.d_model, self.model.shared.num_embeddings, bias=False)
-        self.classifier = nn.Linear( config.d_model, self.num_labels) #custom change
+        self.classifier = nn.Linear( self.model.shared.num_embeddings, self.num_labels) #custom change
 
         # Initialize weights and apply final processing
         self.post_init()
@@ -1413,7 +1413,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
         lm_logits = self.lm_head(outputs[0])
         lm_logits = lm_logits + self.final_logits_bias.to(lm_logits.device)
         
-        linear_logits = self.classifier(outputs[0]) # bs x token_len x num tags
+        linear_logits = self.classifier(lm_logits) # bs x token_len x num tags
        
         loss = None
         if decoder_tags is not None:

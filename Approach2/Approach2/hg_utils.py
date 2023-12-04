@@ -2441,7 +2441,7 @@ class GenerationMixin:
         unfinished_sequences = torch.ones(input_ids.shape[0], dtype=torch.long, device=input_ids.device)
 
         this_peer_finished = False  # used by synced_gpus only
-        all_linear_logits = None
+        all_linear_logits =  torch.ones(input_ids.shape[0], 1, dtype=torch.long, device=input_ids.device)
         while True:
             if synced_gpus:
                 # Under synced_gpus the `forward` call must continue until all gpus complete their sequence.
@@ -2453,9 +2453,9 @@ class GenerationMixin:
                 if this_peer_finished_flag.item() == 0.0:
                     break
 
+
             # prepare model inputs
             model_inputs = self.model.prepare_inputs_for_generation(input_ids, **model_kwargs)
-
             # forward pass to get next token
             outputs = self.model(
                 **model_inputs,
@@ -2465,7 +2465,7 @@ class GenerationMixin:
             )
             
             linear_logits = torch.argmax(outputs.linear_logits[:, -1, :], dim = 1).reshape(-1,1)
-            all_linear_logits = torch.cat((all_linear_logits, linear_logits), dim = 1) if all_linear_logits is not None else linear_logits
+            all_linear_logits = torch.cat([all_linear_logits, linear_logits], dim = 1)
             
             if synced_gpus and this_peer_finished:
                 continue  # don't waste resources running the code we don't need
@@ -2503,7 +2503,10 @@ class GenerationMixin:
                 next_tokens = next_tokens * unfinished_sequences + pad_token_id * (1 - unfinished_sequences)
 
             # update generated ids, model inputs, and length for next step
+            
             input_ids = torch.cat([input_ids, next_tokens[:, None]], dim=-1)
+            
+            
             if streamer is not None:
                 streamer.put(next_tokens.cpu())
             model_kwargs = self._update_model_kwargs_for_generation(
@@ -2529,7 +2532,7 @@ class GenerationMixin:
 
         if streamer is not None:
             streamer.end()
-
+       
         if return_dict_in_generate:
             if self.config.is_encoder_decoder:
                 return GreedySearchEncoderDecoderOutput(
@@ -3017,7 +3020,7 @@ class GenerationMixin:
         beam_scores = beam_scores.view((batch_size * num_beams,))
 
         this_peer_finished = False  # used by synced_gpus only
-        all_linear_logits = None
+        all_linear_logits =  torch.ones(input_ids.shape[0], 1, dtype=torch.long, device=input_ids.device)
         while True:
             if synced_gpus:
                 # Under synced_gpus the `forward` call must continue until all gpus complete their sequence.
@@ -3044,7 +3047,7 @@ class GenerationMixin:
             #if hasattr(outputs, "linear_logits"):
                 
             linear_logits = torch.argmax(outputs.linear_logits[:, -1, :], dim = 1).reshape(-1,1)
-            all_linear_logits = torch.cat((all_linear_logits, linear_logits), dim = 1) if all_linear_logits is not None else linear_logits
+            
                
 
             if synced_gpus and this_peer_finished:
@@ -3110,6 +3113,9 @@ class GenerationMixin:
         
 
             input_ids = torch.cat([input_ids[beam_idx, :], beam_next_tokens.unsqueeze(-1)], dim=-1)
+            
+            all_linear_logits = torch.cat([all_linear_logits[beam_idx, :], linear_logits], dim = 1)
+            
 
             model_kwargs = self._update_model_kwargs_for_generation(
                 outputs, model_kwargs, is_encoder_decoder=self.model.config.is_encoder_decoder
@@ -3128,7 +3134,6 @@ class GenerationMixin:
                 else:
                     this_peer_finished = True
 
-     
 
         sequence_outputs = beam_scorer.finalize(
             input_ids,
@@ -3140,11 +3145,8 @@ class GenerationMixin:
             max_length=stopping_criteria.max_length,
             beam_indices=beam_indices,
         )
-       
-        #linear_logits = torch.take_along_dim(all_linear_logits, sequence_outputs['beam_indices'][:,:-1], dim=0)
-       
+        
         linear_logits = all_linear_logits[0].reshape(1,-1)
-       
         if return_dict_in_generate:
             if not output_scores:
                 sequence_outputs["sequence_scores"] = None

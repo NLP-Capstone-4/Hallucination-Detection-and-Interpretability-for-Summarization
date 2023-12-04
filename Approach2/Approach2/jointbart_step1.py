@@ -1300,10 +1300,6 @@ class BartModel(BartPreTrainedModel):
             encoder_attentions=encoder_outputs.attentions,
         )
 
-from dataclasses import dataclass
-@dataclass
-class mySeq2SeqLMOutput(Seq2SeqLMOutput):
-    linear_logits: torch.FloatTensor = None
 
 @add_start_docstrings(
     "The BART Model with a language modeling head. Can be used for summarization.", BART_START_DOCSTRING
@@ -1319,7 +1315,7 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
         self.model = BartModel(config)
         self.register_buffer("final_logits_bias", torch.zeros((1, self.model.shared.num_embeddings)))
         self.lm_head = nn.Linear(config.d_model, self.model.shared.num_embeddings, bias=False)
-        self.classifier = nn.Linear( config.d_model, self.num_labels) #custom change
+        self.classifier = nn.Linear(config.d_model, self.num_labels) #custom change
 
         # Initialize weights and apply final processing
         self.post_init()
@@ -1410,11 +1406,12 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
+
         lm_logits = self.lm_head(outputs[0])
         lm_logits = lm_logits + self.final_logits_bias.to(lm_logits.device)
         
         linear_logits = self.classifier(outputs[0]) # bs x token_len x num tags
-       
+
         loss = None
         if decoder_tags is not None:
             decoder_tags = decoder_tags.to(linear_logits.device)
@@ -1430,13 +1427,12 @@ class myBartForConditionalGeneration(BartPreTrainedModel):
 
 
         if not return_dict:
-            output = (lm_logits) + outputs[1:]
-            return ((loss + masked_lm_loss,) + output) if loss is not None else output
+            output = (linear_logits) + outputs[1:]
+            return ((loss,) + output) if loss is not None else output
 
-        return mySeq2SeqLMOutput(
-            loss=(loss + masked_lm_loss) if loss is not None else masked_lm_loss,
-            logits=lm_logits,
-            linear_logits = linear_logits,
+        return Seq2SeqLMOutput(
+            loss=(loss) if loss is not None else masked_lm_loss,
+            logits=linear_logits,
             past_key_values=outputs.past_key_values,
             decoder_hidden_states=outputs.decoder_hidden_states,
             decoder_attentions=outputs.decoder_attentions,
