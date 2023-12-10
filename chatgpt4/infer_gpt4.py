@@ -271,7 +271,7 @@ def one_shot_summ_without_gold(row, logger):
 
 def extract_summary_tags(text):
     summary_pattern = r'Summary- "(.*?)"\s*\n'
-    tags_pattern = r'Tags- "(.*?)"\s*\n'
+    tags_pattern = r'Tags- "(.*?)"\s*'
     explanation_pattern = r'Explanation- (.*?)$'
 
     summary = re.search(summary_pattern, text, re.DOTALL)
@@ -317,17 +317,13 @@ def one_shot_summ_tags(row, logger):
 
     Tags- "O O O O O O O O O O O O O O O O O O W O O O O"
 
-    Explanation- Let's think step by step. The dialogue is about Hannah asking for Betty's number to Amanda, who couldn't find it and suggests to ask Larry for it since he had called her(Betty) the last time they were in the park together. Hannah doesn't know him(Larry) well and is shy to text him, but Amanda asks her to do it anyway.  So according to the summary, "Amanda will text Larry" is incorrect. The way to correct this information is the token Amanda can be changed to Hannah. This is Wrong Reference (W) from the tokens described above. All other tokens are correct and are thus Not Hallucinated (O).
-
-    Similarly, for the next dialogue, generate summary of all the dialogues and tags for the summary. Think step by step to explain it.
+    Similarly, for the next dialogue, generate summary of all the dialogues and tags for the summary.
     Conversation- """
     
     prompt_2 = """
     Summary- 
 
     Tags- 
-
-    Explanation- 
     """
 
     summary = ""
@@ -458,9 +454,9 @@ def main():
     
     model_name = "BART-Cons"
     data_filepath = os.path.join(root_filepath, 'data', 'annotated_capstone_data.csv')
-    save_filepath = os.path.join(root_filepath, 'data', 'one_shot_tags_for_' + model_name + '_summary.csv')
+    save_filepath = os.path.join(root_filepath, 'data', 'one_shot_summ_tag_no_explain.csv')
     if not os.path.exists(save_filepath):
-        save_df = pd.DataFrame(columns=['ID', 'gpt_4_tags', 'gpt_4_explanation'])
+        save_df = pd.DataFrame(columns=['ID', 'gpt_4_summ', 'gpt_4_tags'])
         save_df.to_csv(save_filepath, index=False)
     already_processed_conv_id = set(pd.read_csv(save_filepath)['ID'])
 
@@ -473,8 +469,8 @@ def main():
         for index, row in df.iterrows():
             conv_id = row[0]
             if conv_id not in already_processed_conv_id:
-                (tags, explanation) = one_shot_tags(row, logger, model_name)
-                writer.writerow([conv_id, tags, explanation])
+                (summ, tags, explanation) = one_shot_summ_tags(row, logger)
+                writer.writerow([conv_id, summ, tags])
                 time.sleep(10)
 
     # Apply the custom function to each row along axis 1 (row-wise)
